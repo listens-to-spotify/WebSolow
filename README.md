@@ -2,7 +2,7 @@
 
 ---
 
-# Описание
+### Описание
 
 Приложение будет давать возможность:
 
@@ -17,15 +17,15 @@
 - наглядная визуализация может помочь разобратсья в модели;
 - прогнозирование экономического роста;
 
+---
 
-# Похожие и аналогичные проекты
+### Похожие и аналогичные проекты
 - [solowPy](https://github.com/solowPy/solowPy) -- библиотека для решения, моделирования и оценки модели экономического роста Солоу;
 - [Визуализация модели](https://github.com/jbduarte/blog/blob/master/_notebooks/2021-02-16-Solow.ipynb);
-
 
 ---
 
 ### Contact
 
-tg :[listens_to_spotify](https://t.me/listens_to_spotify)
+tg : [listens_to_spotify](https://t.me/listens_to_spotify)
 
