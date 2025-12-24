@@ -8,3 +8,5 @@
 # NGINX_SITES_ENABLED="/etc/nginx/sites-enabled"
 
 # Since I've only started, deployment is manual
+
+# Note: should copy -- not symlinks.
