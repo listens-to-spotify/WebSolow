@@ -25,6 +25,11 @@
 
 ---
 
+### Документация
+
+- [Математическая модель](https://github.com/listens-to-spotify/docs/math-model.md);
+- [Архитектура](https://github.com/listens-to-spotify/docs/archi.md);
+
 ### Contact
 
 tg : [listens_to_spotify](https://t.me/listens_to_spotify)
