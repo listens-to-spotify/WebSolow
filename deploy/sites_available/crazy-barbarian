@@ -1,0 +1,11 @@
+server {
+    listen 80;
+    server_name crazy-barbarian.org www.crazy-barbarian.org;
+    
+    root /var/www/WebSolow/frontend;
+    index index.html;
+    
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
