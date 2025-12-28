@@ -1,4 +1,5 @@
 server {
+    disable_symlinks off;
     listen 80;
     server_name crazy-barbarian.org www.crazy-barbarian.org;
     
