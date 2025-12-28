@@ -2,6 +2,8 @@
 
 ---
 
+[WebSolow](http://crazy-barbarian.org/WebSolow)
+
 ### Описание
 
 Приложение будет давать возможность:
