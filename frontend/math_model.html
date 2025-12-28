@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Математическая модель Солоу</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-blue: #3498db;
+            --light-blue: #ebf5fb;
+            --medium-blue: #aed6f1;
+            --dark-gray: #2c3e50;
+            --medium-gray: #7f8c8d;
+            --light-gray: #f8f9fa;
+            --border-gray: #d5dbdb;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
+            color: var(--dark-gray);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 30px rgba(52, 152, 219, 0.1);
+            border: 1px solid var(--border-gray);
+        }
+        
+        h1 {
+            color: var(--dark-gray);
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-blue);
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        
+        h2 {
+            color: var(--dark-gray);
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        h2:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 5px;
+            bottom: 5px;
+            width: 4px;
+            background: var(--primary-blue);
+            border-radius: 2px;
+        }
+        
+        p {
+            font-size: 1.05em;
+            margin-bottom: 22px;
+            color: var(--dark-gray);
+        }
+        
+        .equation-block {
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
+            padding: 22px;
+            margin: 25px 0;
+            border-radius: 10px;
+            border: 1px solid var(--medium-blue);
+            text-align: center;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .equation-block:before {
+            content: "";
+            position: absolute;
+            left: -1px;
+            top: 10%;
+            bottom: 10%;
+            width: 3px;
+            background: var(--primary-blue);
+            border-radius: 2px;
+        }
+        
+        .inline-equation {
+            font-size: 1.05em;
+            font-weight: 500;
+            color: var(--dark-gray);
+            background-color: var(--light-blue);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--medium-blue);
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, var(--light-blue) 0%, rgba(52, 152, 219, 0.05) 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--medium-blue);
+            margin: 25px 0;
+        }
+        
+        .variable-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 18px;
+            margin: 28px 0;
+        }
+        
+        .variable-item {
+            background: linear-gradient(135deg, var(--white) 0%, var(--light-blue) 100%);
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid var(--medium-blue);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .variable-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.15);
+        }
+        
+        .variable-name {
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        
+        .variable-desc {
+            font-size: 0.92em;
+            color: var(--medium-gray);
+            line-height: 1.5;
+        }
+        
+        .section {
+            margin-bottom: 45px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .math-display {
+            font-size: 1.15em;
+            padding: 12px 0;
+            color: var(--dark-gray);
+        }
+        
+        .emphasis-box {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.08) 0%, rgba(52, 152, 219, 0.02) 100%);
+            border: 1px solid var(--medium-blue);
+            border-left: 4px solid var(--primary-blue);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .note {
+            font-size: 0.95em;
+            color: var(--medium-gray);
+            font-style: italic;
+            text-align: center;
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-gray);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 20px;
+                margin: 15px;
+            }
+            
+            .variable-list {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .equation-block {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Математическая модель</h1>
+        
+        <div class="section">
+            <h2>Основные предпосылки модели</h2>
+            
+            <div class="emphasis-box">
+                <p>Уравнения, свойственные закрытой экономике без государственного сектора:</p>
+                <div class="equation-block">
+                    <div class="math-display">
+                        \( S = I = sY, \quad Y = C + I \)
+                    </div>
+                </div>
+            </div>
+            
+            <p>Производственная функция <span class="inline-equation">\( Y(K, L, E) = Y(K, LE) \)</span>, где:</p>
+            
+            <div class="variable-list">
+                <div class="variable-item">
+                    <div class="variable-name">\( K \)</div>
+                    <div class="variable-desc">Капитал</div>
+                </div>
+                <div class="variable-item">
+                    <div class="variable-name">\( L \)</div>
+                    <div class="variable-desc">Труд</div>
+                </div>
+                <div class="variable-item">
+                    <div class="variable-name">\( E \)</div>
+                    <div class="variable-desc">Уровень технологии</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Свойства производственной функции</h2>
+            
+            <div class="equation-block">
+                <div class="math-display">
+                    \( Y(aK, aLE) = aY(K, LE) \)
+                </div>
+                <p>Постоянная отдача от масштаба</p>
+            </div>
+            
+            <div class="equation-block">
+                <div class="math-display">
+                    \( \frac{\partial Y}{\partial K} > 0, \quad \frac{\partial Y}{\partial L} > 0, \quad \frac{\partial^2 Y}{\partial K^2} < 0, \quad \frac{\partial^2 Y}{\partial L^2} < 0 \)
+                </div>
+                <p>Предельный продукт факторов производства положительный и убывает</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Условия Инады</h2>
+            
+            <div class="equation-block">
+                <div class="math-display">
+                    \( \displaystyle \lim_{K\to 0} \frac{\partial Y}{\partial K} = \lim_{L\to 0} \frac{\partial Y}{\partial L} = +\infty, \quad \displaystyle \lim_{K\to +\infty} \frac{\partial Y}{\partial K} = \lim_{L\to +\infty} \frac{\partial Y}{\partial L} = 0 \)
+                </div>
+            </div>
+            
+            <div class="equation-block">
+                <div class="math-display">
+                    \( Y(K, 0) = Y(0, LE) = 0 \)
+                </div>
+                <p>Для производства необходим каждый фактор</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Динамика факторов производства</h2>
+            
+            <div class="equation-block">
+                <div class="math-display">
+                    \( L(t) = L_0 e^{nt} \)
+                </div>
+                <p>Население (трудовые ресурсы) растет с темпом \( n \)</p>
+            </div>
+            
+            <div class="equation-block">
+                <div class="math-display">
+                    \( E(t) = E_0 e^{gt} \)
+                </div>
+                <p>Технологический прогресс растет с темпом \( g \)</p>
+            </div>
+            
+            <div class="variable-list">
+                <div class="variable-item">
+                    <div class="variable-name">\( \delta \)</div>
+                    <div class="variable-desc">Норма выбытия капитала</div>
+                </div>
+                <div class="variable-item">
+                    <div class="variable-name">\( s \)</div>
+                    <div class="variable-desc">Норма сбережений</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Основная система уравнений</h2>
+            
+            <div class="equation-block" style="background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(52, 152, 219, 0.03) 100%);">
+                <div class="math-display">
+                    \(
+                    \left\{
+                        \begin{array}{l}
+                            L(t) = L_0 e^{nt}, \\
+                            E(t) = E_0 e^{gt}, \\
+                            Y(t) = F(K(t), E(t)L(t)), \\
+                            I(t) = sY(t), \\
+                            C(t) = (1 - s)Y(t), \\
+                            \frac{\partial K}{\partial t} = I(t) - \delta K(t)
+                        \end{array}
+                    \right.
+                    \)
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Начальные условия модели</h2>
+            
+            <div class="equation-block" style="background: linear-gradient(135deg, rgba(52, 152, 219, 0.15) 0%, rgba(52, 152, 219, 0.05) 100%);">
+                <div class="math-display">
+                    \(
+                    \left\{
+                        \begin{array}{l}
+                            K(0) = K_0 > 0, \\
+                            L(0) = L_0 > 0, \\
+                            E(0) = E_0 > 0, \\
+                            Y(0) = F(K_0, E_0L_0)
+                        \end{array}
+                    \right.
+                    \)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Веб-приложение для моделирования модели роста Солоу, 2025</p>
+    </footer>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            },
+            startup: {
+                ready: () => {
+                    MathJax.startup.defaultReady();
+                    console.log('MathJax инициализирован');
+                }
+            }
+        };
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

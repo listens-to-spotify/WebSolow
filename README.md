@@ -2,6 +2,8 @@
 
 ---
 
+[WebSolow](http://crazy-barbarian.org/WebSolow)
+
 ### Описание
 
 Приложение будет давать возможность:
@@ -24,6 +26,11 @@
 - [Визуализация модели](https://github.com/jbduarte/blog/blob/master/_notebooks/2021-02-16-Solow.ipynb);
 
 ---
+
+### Документация
+
+- [Математическая модель](https://github.com/listens-to-spotify/docs/math-model.md);
+- [Архитектура](https://github.com/listens-to-spotify/docs/archi.md);
 
 ### Contact
 
