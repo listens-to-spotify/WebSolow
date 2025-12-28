@@ -2,7 +2,7 @@
 
 ---
 
-[WebSolow](http://crazy-barbarian.org/WebSolow)
+[WebSolow](https://crazy-barbarian.org/WebSolow)
 
 ### Описание
 
