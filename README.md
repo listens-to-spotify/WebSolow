@@ -29,7 +29,7 @@
 
 ### Документация
 
-- [Математическая модель](https://github.com/listens-to-spotify/WebSolow/blob/main/docs/math-model.md);
+- [Математическая модель](https://github.com/listens-to-spotify/WebSolow/blob/main/docs/math_model.md);
 - [Архитектура](https://github.com/listens-to-spotify/WebSolow/blob/main/docs/archi.md);
 
 ### Contact
