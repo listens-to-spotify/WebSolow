@@ -29,8 +29,8 @@
 
 ### Документация
 
-- [Математическая модель](https://github.com/listens-to-spotify/docs/math-model.md);
-- [Архитектура](https://github.com/listens-to-spotify/docs/archi.md);
+- [Математическая модель](https://github.com/listens-to-spotify/WebSolow/docs/math-model.md);
+- [Архитектура](https://github.com/listens-to-spotify/WebSolow/docs/archi.md);
 
 ### Contact
 
