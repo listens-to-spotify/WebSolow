@@ -1,12 +1,22 @@
 server {
-    disable_symlinks off;
     listen 80;
     server_name crazy-barbarian.org www.crazy-barbarian.org;
     
-    root /var/www/WebSolow/frontend;
+    root /var/www/crazy-barbarian.org;
     index index.html;
     
     location / {
         try_files $uri $uri/ =404;
+    }
+    
+    location /WebSolow {
+        alias /var/www/crazy-barbarian.org/WebSolow;
+        index index.html;
+        try_files $uri $uri/ =404;
+    }
+    
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
     }
 }
