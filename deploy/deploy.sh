@@ -56,6 +56,8 @@ fi
 
 # copy files to sites-enabled
 
+cp -f "$NGINX_SITES_AVAILABLE"/* "$NGINX_SITES_ENABLED/"
+
 chown -R www-data:www-data "$FRONTEND_DIR"
 chmod -R 755 "$FRONTEND_DIR"
 
