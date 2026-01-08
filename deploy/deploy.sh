@@ -54,9 +54,15 @@ if [ -d "$REPO_DIR/frontend" ]; then
     cp -fr "$REPO_DIR/frontend/"* "$FRONTEND_DIR/WebSolow/"
 fi
 
-# copy files to sites-enabled
+# remove old symlinks
+rm -f "$NGINX_SITES_ENABLED"/* 2>/dev/null || true
 
-cp -rs "$NGINX_SITES_AVAILABLE/." "$NGINX_SITES_ENABLED/"
+# create new symlinks
+for config in "$NGINX_SITES_AVAILABLE"/*; do
+    if [ -f "$config" ]; then
+        ln -sf "$config" "$NGINX_SITES_ENABLED/$(basename "$config")"
+    fi
+done
 
 chown -R www-data:www-data "$FRONTEND_DIR"
 chmod -R 755 "$FRONTEND_DIR"
