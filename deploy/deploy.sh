@@ -54,11 +54,11 @@ if [ -d "$REPO_DIR/frontend" ]; then
     cp -fr "$REPO_DIR/frontend/"* "$FRONTEND_DIR/WebSolow/"
 fi
 
-# create symlinks in sites-enabled
+# copy files to sites-enabled
 
-ln -s "$NGINX_SITES_AVAILABLE/"* "$NGINX_SITES_ENABLED/"
+cp -fr "$NGINX_SITES_AVAILABLE/" "$NGINX_SITES_ENABLED/"
 
 chown -R www-data:www-data "$FRONTEND_DIR"
 chmod -R 755 "$FRONTEND_DIR"
 
-echo "sudo nginx -t"
+echo "$(nginx -t)"
