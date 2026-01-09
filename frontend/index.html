@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Модель Солоу - Веб-симулятор</title>
+    <title>crazy-barbarian.org</title>
     <style>
         :root {
             --primary-blue: #3498db;
@@ -20,206 +20,101 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
             background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
             color: var(--dark-gray);
             min-height: 100vh;
         }
         
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             background-color: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 6px 30px rgba(52, 152, 219, 0.1);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 40px rgba(52, 152, 219, 0.15);
             border: 1px solid var(--border-gray);
-        }
-        
-        header {
             text-align: center;
-            margin-bottom: 40px;
         }
         
         h1 {
             color: var(--dark-gray);
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
         
         .subtitle {
             color: var(--medium-gray);
-            font-size: 1.1em;
+            font-size: 1.2em;
+            margin-bottom: 40px;
         }
         
-        section {
-            margin-bottom: 30px;
-        }
-        
-        h2 {
-            color: var(--primary-blue);
-            border-bottom: 2px solid var(--light-blue);
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-        }
-        
-        p {
-            font-size: 1.05em;
-            margin-bottom: 15px;
-        }
-        
-        ul {
-            padding-left: 20px;
-        }
-        
-        li {
-            margin-bottom: 8px;
-        }
-        
-        .doc-links {
-            display: flex;
-            gap: 20px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-        
-        .doc-link {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
-            padding: 15px 25px;
-            border-radius: 8px;
+        .project-card {
+            background: linear-gradient(135deg, var(--light-blue) 0%, rgba(52, 152, 219, 0.05) 100%);
+            padding: 30px;
+            border-radius: 12px;
             border: 1px solid var(--medium-blue);
+            margin: 40px 0;
+            text-align: left;
+        }
+        
+        .project-title {
+            color: var(--primary-blue);
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .project-title:before {
+            content: "📊";
+            font-size: 1.2em;
+        }
+        
+        .project-link {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
             text-decoration: none;
-            color: var(--dark-gray);
             font-weight: 500;
+            margin-top: 15px;
             transition: all 0.3s ease;
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
+            border: 1px solid var(--primary-blue);
         }
         
-        .doc-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.15);
-            border-color: var(--primary-blue);
+        .project-link:hover {
+            background-color: white;
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
         }
         
-        .doc-link.math:before {
-            content: "📐 ";
-        }
-        
-        .doc-link.arch:before {
-            content: "🏗️ ";
-        }
-        
-        footer {
+        .footer {
             margin-top: 50px;
-            text-align: center;
             color: var(--medium-gray);
             font-size: 0.9em;
             padding-top: 20px;
             border-top: 1px solid var(--border-gray);
         }
-        
-        .nav-links {
-            margin: 20px 0 40px 0;
-            text-align: center;
-        }
-        
-        .nav-link {
-            display: inline-block;
-            margin: 0 10px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
-            border-radius: 8px;
-            border: 1px solid var(--medium-blue);
-            text-decoration: none;
-            color: var(--dark-gray);
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.15);
-            border-color: var(--primary-blue);
-        }
-        
-        .nav-link.math {
-            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(52, 152, 219, 0.05) 100%);
-        }
-        
-        .nav-link.arch {
-            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(52, 152, 219, 0.05) 100%);
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 25px 20px;
-                margin: 15px;
-            }
-            
-            .doc-links {
-                flex-direction: column;
-            }
-            
-            body {
-                padding: 10px;
-            }
-            
-            .nav-links {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .nav-link {
-                margin: 0;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Веб-приложение модель Солоу</h1>
-            <p class="subtitle">Курсовая работа по моделированию экономических отношений</p>
-        </header>
+        <h1>crazy-barbarian.org</h1>
+        <p class="subtitle">Личный домен для проектов и экспериментов</p>
         
-        <div class="nav-links">
-            <a href="math_model.html" class="nav-link math">Математическая модель</a>
-            <a href="archi.html" class="nav-link arch">Архитектура проекта</a>
+        <div class="project-card">
+            <div class="project-title">Модель экономического роста Солоу</div>
+            <p>Веб-приложение для численного моделирования и визуализации модели экономического роста Солоу. Курсовая работа по моделированию экономических отношений.</p>
+            <a href="/WebSolow/" class="project-link">Перейти к проекту →</a>
         </div>
         
-        <main>
-            <section id="description">
-                <h2>Описание проекта</h2>
-                <p>
-                    Это веб-приложение для численного моделирования и визуализации модели экономического роста Солоу.
-                    Приложение позволит устанавливать начальные условия, изменять параметры в реальном времени и
-                    рассматривать различные сценарии экономического развития.
-                </p>
-            </section>
-            
-            <section id="project-info">
-                <h2>Информация о проекте</h2>
-                <p><strong>Стек технологий (MVP):</strong> JavaScript/HTML/CSS (фронтенд), Nginx (сервер), Docker (контейнеризация)</p>
-                <p><strong>Дедлайн проекта:</strong> 7 июня 2026 года</p>
-            </section>
-            
-            <section id="next-steps">
-                <h2>Ближайшие шаги</h2>
-                <ul>
-                    <li>Разработка архитектуры приложения</li>
-                    <li>Создание интерактивного интерфейса</li>
-                    <li>Реализация математической модели</li>
-                    <li>Настройка визуализации графиков</li>
-                </ul>
-            </section>
-        </main>
-
-        <footer>
-            <p>Веб-приложение для моделирования модели роста Солоу, 2025</p>
-        </footer>
+        <div class="footer">
+            <p>crazy-barbarian.org, 2025</p>
+        </div>
     </div>
 </body>
 </html>
