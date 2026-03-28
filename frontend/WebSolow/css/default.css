@@ -493,3 +493,48 @@ footer {
     }
 }
 
+
+.simple-chart canvas {
+    width: 100% !important;
+    height: 700px !important;
+}
+
+.chart-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 700px;
+    color: var(--medium-gray);
+    font-style: italic;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--light-gray),
+        var(--light-gray) 10px,
+        var(--white) 10px,
+        var(--white) 20px
+    );
+    border-radius: 8px;
+}
+
+.grid-1x3 {
+    display: grid;
+    grid-template-columns: 280px 1fr 280px;
+    gap: 20px;
+    align-items: start;
+}
+
+.charts-center {
+    min-width: 0;
+}
+
+@media (max-width: 1200px) {
+    .grid-1x3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-1x2 {
+        grid-template-columns: 1fr;
+    }
+}

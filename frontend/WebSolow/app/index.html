@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSolow — Модель Солоу</title>
+    <link rel="stylesheet" href="../css/default.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <script src="lib/chart.min.js"></script>
+    <script src="js/solow-core.js"></script>
+</head>
+<body>
+    <div class="wide-container">
+        <header>
+            <h1>Модель Солоу</h1>
+            <p class="subtitle">Визуализация интенсивной формы</p>
+        </header>
+        <div class="nav-links">
+            <a href="../" class="nav-link">Главная</a>
+        </div>
+    </div>
+
+    <div class="wide-container">
+        <div class="grid-1x3">
+            <aside class="sidebar">
+                <h2>Параметры модели</h2>
+                
+                <div class="settings-stack">
+                    <div class="setting-item">
+                        <div class="setting-title">
+                            Норма сбережений (s)
+                            <span class="value-display" id="sVal">0.30</span>
+                        </div>
+                        <input type="range" class="simple-slider" id="sSlider" 
+                               min="0.01" max="0.99" step="0.01" value="0.3">
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-title">
+                            Амортизация (δ)
+                            <span class="value-display" id="deltaVal">0.05</span>
+                        </div>
+                        <input type="range" class="simple-slider" id="deltaSlider" 
+                               min="0.001" max="0.5" step="0.001" value="0.05">
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-title">
+                            Рост населения (n)
+                            <span class="value-display" id="nVal">0.02</span>
+                        </div>
+                        <input type="range" class="simple-slider" id="nSlider" 
+                               min="0" max="0.2" step="0.005" value="0.02">
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-title">
+                            Техн. прогресс (g)
+                            <span class="value-display" id="gVal">0.05</span>
+                        </div>
+                        <input type="range" class="simple-slider" id="gSlider" 
+                               min="0" max="0.2" step="0.005" value="0.05">
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="setting-item">
+                        <div class="setting-title">
+                            Коэффициент α
+                            <span class="value-display" id="alphaVal">0.50</span>
+                        </div>
+                        <input type="range" class="simple-slider" id="alphaSlider" 
+                               min="0.05" max="0.95" step="0.05" value="0.5">
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-title">Начальный капитал k₀</div>
+                        <input type="text" class="simple-input" id="k0Input" value="0.5" style="width: 40%;">
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="settings-stack" style="background: var(--white); padding: 15px; border-radius: 8px; border: 1px solid var(--border-gray);">
+                        <div class="info-title" style="color: var(--dark-gray);">ТСР</div>
+                        <div class="info-content">
+                            k* = <span id="kStarVal">—</span><br>
+                            y* = <span id="yStarVal">—</span>
+                        </div>
+                    </div>
+
+                    <div class="control-stack">
+                        <button class="simple-btn btn-run" id="startBtn">Старт</button>
+                        <button class="simple-btn btn-reset" id="resetBtn">Сброс</button>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="content charts-center">
+                <h2>Графики</h2>
+                
+                <div class="graphs-stack">
+                    <div class="simple-chart">
+                        <div class="chart-label">Основная диаграмма</div>
+                        <div id="placeholderPhase" class="chart-placeholder">
+                            Нажмите «Старт»
+                        </div>
+                        <canvas id="chartPhase" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="simple-chart">
+                        <div class="chart-label">Динамика k(t) и y(t)</div>
+                        <div id="placeholderDynamics" class="chart-placeholder">
+                            Нажмите «Старт»
+                        </div>
+                        <canvas id="chartDynamics" style="display: none;"></canvas>
+                    </div>
+
+                    <div class="simple-chart">
+                        <div class="chart-label">Темпы роста</div>
+                        <div id="placeholderGrowth" class="chart-placeholder">
+                            Нажмите «Старт»
+                        </div>
+                        <canvas id="chartGrowth" style="display: none;"></canvas>
+                    </div>
+                </div>
+            </main>
+
+            <aside class="sidebar">
+                <h2>Шоки</h2>
+                
+                <div class="settings-stack">
+                    <div class="setting-item">
+                        <div class="setting-title">Параметр шока</div>
+                        <select class="simple-input" id="shockParam" style="width: 100%;">
+                            <option value="s">Норма сбережений (s)</option>
+                            <option value="delta">Амортизация (δ)</option>
+                            <option value="n">Рост населения (n)</option>
+                            <option value="g">Техн. прогресс (g)</option>
+                            <option value="alpha">Коэффициент α</option>
+                            <option value="k0">Капитал k₀</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-title">Новое значение</div>
+                        <input type="text" class="simple-input" id="shockValue" value="0.3" style="width: 40%;">
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="settings-stack" style="background: var(--white); padding: 15px; border-radius: 8px; border: 1px solid var(--border-gray);">
+                        <div class="info-title" style="color: var(--dark-gray);">Изменение ТСР</div>
+                        <div class="info-content">
+                            Новый k* = <span id="newKStarVal">—</span><br>
+                            Δk* = <span id="deltaKStarVal">—</span>
+                        </div>
+                    </div>
+
+                    <div class="control-stack">
+                        <button class="simple-btn btn-primary" id="applyShockBtn">Применить шок</button>
+                        <button class="simple-btn btn-reset" id="resetShockBtn">Сброс шока</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer>
+        <p>Веб-приложение для моделирования экономических отношений, 2025</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
