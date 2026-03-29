@@ -45,11 +45,12 @@ class SolowModel {
     }
 
     gy(k) {
-        return 1 + this.g;
+        const gk = this.gk(k);
+        return this.alpha * gk;
     }
 
     gw(k) {
-        return 1 + this.g + this.alpha * this.gk(k);
+        return this.g + this.alpha * this.gk(k);
     }
 
     r(k) {

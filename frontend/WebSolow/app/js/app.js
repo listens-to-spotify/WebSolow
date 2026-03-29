@@ -81,6 +81,8 @@ class SolowController {
             if (param === 'k0') {
                 const kStarToShow = this.newKStar !== null ? this.newKStar : (this.model ? this.model.kStar : this.initialKStar);
                 input.value = kStarToShow.toFixed(4);
+            } else if (param === 'K' || param === 'A' || param === 'L') {
+                input.value = '1';
             } else {
                 input.value = this.params[param]?.toString() || '0.3';
             }
@@ -268,7 +270,7 @@ class SolowController {
                 this.charts.phase.data.datasets[4].hidden = false;
             } else if (param === 'alpha') {
                 this.charts.phase.data.datasets[0].data = this.baseModel.productionFunctionData(0, kMax);
-            } else if (param === 'k0') {
+            } else if (param === 'k0' || param === 'K' || param === 'A' || param === 'L') {
                 this.charts.phase.data.datasets[7].data = [
                     { x: this.shockK1, y: 0 },
                     { x: this.shockK1, y: Math.pow(kMax, this.baseModel.alpha) }
@@ -276,7 +278,7 @@ class SolowController {
                 this.charts.phase.data.datasets[7].hidden = false;
             }
             
-            if (param === 'k0') {
+            if (param === 'k0' || param === 'K' || param === 'A' || param === 'L') {
                 this.charts.phase.data.datasets[5].data = [
                     { x: kStarOld, y: 0 },
                     { x: kStarOld, y: Math.pow(kStarOld, this.baseModel.alpha) }
@@ -488,7 +490,7 @@ class SolowController {
                         tension: 0.4,
                         pointRadius: 0
                     },
-                    {
+                    /*{
                         label: 'g_YL — рост выпуска/работника',
                         data: [],
                         borderColor: '#2ecc71',
@@ -497,7 +499,7 @@ class SolowController {
                         fill: false,
                         tension: 0.4,
                         pointRadius: 0
-                    },
+                    },*/
                 ]
             },
             options: {
@@ -546,7 +548,7 @@ class SolowController {
 
         const rData = [];
         const gwData = [];
-        const gyData = [];
+        // const gyData = [];
         
         const step = Math.max(1, Math.floor(this.trajectory.length / 100));
 
@@ -554,12 +556,12 @@ class SolowController {
             const point = this.trajectory[i];
             rData.push({ x: point.t, y: point.r });
             gwData.push({ x: point.t, y: point.gw });
-            gyData.push({ x: point.t, y: point.gy });
+            // gyData.push({ x: point.t, y: point.gy });
         }
 
         this.charts.growth.data.datasets[0].data = rData;
         this.charts.growth.data.datasets[1].data = gwData;
-        this.charts.growth.data.datasets[2].data = gyData;
+        //  this.charts.growth.data.datasets[2].data = gyData;
 
         let tMin, tMax;
         
@@ -573,8 +575,8 @@ class SolowController {
         
         this.charts.growth.options.scales.x.min = tMin;
         this.charts.growth.options.scales.x.max = tMax;
-        this.charts.growth.options.scales.y.max = 1.5;
-        this.charts.growth.options.scales.y.min = 0;
+        this.charts.growth.options.scales.y.max = 0.4;
+        this.charts.growth.options.scales.y.min = -0.1;
         
         this.charts.growth.update('none');
     }
@@ -596,6 +598,16 @@ class SolowController {
 
         if (param === 'k0') {
             this.shockK1 = value;
+            this.newKStar = this.model ? this.model.kStar : this.initialKStar;
+        } else if (param === 'K' || param === 'A' || param === 'L') {
+            this.baseParams = { ...this.params };
+            const lastPoint = this.trajectory[this.trajectory.length - 1];
+            const currentK = lastPoint ? lastPoint.k : this.params.k0;
+            if (param === 'K') {
+                this.shockK1 = currentK * value;
+            } else if (param === 'A' || param === 'L') {
+                this.shockK1 = currentK / value;
+            }
             this.newKStar = this.model ? this.model.kStar : this.initialKStar;
         } else {
             this.baseParams = { ...this.params };
@@ -637,7 +649,7 @@ class SolowController {
         }
         
         let k;
-        if (param === 'k0') {
+        if (param === 'k0' || param === 'K' || param === 'A' || param === 'L') {
             k = this.shockK1;
             newTrajectory.push({
                 t: t0,
@@ -654,7 +666,7 @@ class SolowController {
         
         const newTMax = 100 + 100 * this.shockCounter;
         
-        const simModel = (param === 'k0') ? this.baseModel : this.model;
+        const simModel = (param === 'k0' || param === 'K' || param === 'A' || param === 'L') ? this.baseModel : this.model;
         
         for (let t = t0 + dt; t <= newTMax; t += dt) {
             newTrajectory.push({
