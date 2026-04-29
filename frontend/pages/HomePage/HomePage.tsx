@@ -1,20 +1,28 @@
-import '../../styles/global.css'
-import { Header, Paragraph } from "../../components/Text/Headers"
-import { NavigationButton } from '../../components/Button/Buttons'
 import { MainLayout } from '../../components/Wrapper/Wrappers'
+import { NavigationButton } from '../../components/Button/Buttons'
 
 function HomePage() {
     return (
-        <div className="box-border size=32 border-8 p-4 min-h-screen grid bg-white">
-            <div className='mt-10 text-center'>
-                <Header text="That is the HomePage" />
-                <br />
-                <Paragraph text="This is the Paragraph" />
-                <br />
-                <NavigationButton text="This is a button" /> 
+        <MainLayout>
+            <div className="flex flex-col items-center justify-center">
+                <div className="max-w-2xl text-center">
+                    <h1 className="text-5xl font-bold text-blue-400 mb-4">WebSolow</h1>
+                    <p className="text-xl text-blue-400">
+                        Интерактивный симулятор модели Солоу. 
+                    </p>
+                    <p className="text-xl text-blue-400 mb-4">
+                        Моделирование экономического роста с возможностью анализа шоковых сценариев
+                    </p>
+                    <div className="flex flex-col sm:flex-col gap-5 justify-center">
+                        <NavigationButton text="Приложение" to="/app" />
+                        <NavigationButton text="Математическая модель" to="/mathmodel" />
+                        <NavigationButton text="Архитектура" to="/arch" />
+                        <NavigationButton text="Документация" to="/docs" />
+                    </div>
+                </div>
             </div>
-        </div>
+        </MainLayout>
     )
 }
 
-export default HomePage;
+export default HomePage

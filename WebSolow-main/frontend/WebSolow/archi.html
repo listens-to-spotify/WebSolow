@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архитектура проекта WebSolow</title>
+    <link rel="stylesheet" href="css/default.css">
+    <style>       
+        .file-tree {
+            background: var(--light-gray);
+            border: 1px solid var(--border-gray);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.8;
+        }
+        
+        .file-tree pre {
+            margin: 0;
+            white-space: pre;
+            overflow-x: auto;
+            font-size: 0.95em;
+            color: var(--dark-gray);
+        }
+        
+        .requirement-list {
+            background: linear-gradient(135deg, var(--light-blue) 0%, rgba(52, 152, 219, 0.05) 100%);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--medium-blue);
+            margin: 25px 0;
+        }
+        
+        .requirement-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border-gray);
+        }
+        
+        .requirement-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .req-icon {
+            font-size: 1.2em;
+            margin-right: 15px;
+            color: var(--primary-blue);
+            min-width: 30px;
+        }
+        
+        .req-content {
+            flex: 1;
+        }
+        
+        .req-title {
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+        
+        .req-desc {
+            color: var(--medium-gray);
+            font-size: 0.95em;
+        }
+        
+        code {
+            background-color: var(--light-blue);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--medium-blue);
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            color: var(--dark-gray);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Архитектура проекта WebSolow</h1>
+            <div class="nav-links">
+                    <a href="index.html" class="nav-link">Главная</a>
+            </div>
+        </header>
+        
+        <div class="section">
+            <h2>Архитектура для MVP</h2>
+            
+            <p>Все вычисления будут происходить на стороне браузера используя <code>JavaScript</code>.</p>
+            
+            <div class="file-tree">
+                <pre>
+WebSolow/
+├── docker
+│   └── nginx
+│       └── default.conf
+├── docker-compose.yml
+├── docs
+│   ├── archi.md
+│   └── math_model.md
+├── frontend
+│   ├── WebSolow
+|   |   └── app
+|   |       ├── js/
+|   |       └── index.html
+|   ├── css
+|   |   ├── default.css
+|   |   └── components.css
+│   ├── archi.html
+│   ├── index.html
+│   └── math_model.html
+├── index.html
+├── LLM-Alert.md
+└── README.md
+                </pre>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>Техническое задание</h3>
+            
+            <div class="requirement-list">
+                <div class="requirement-item">
+                    <div class="req-icon">•</div>
+                    <div class="req-content">
+                        <div class="req-desc">Реализовать интерфейс взаимодействия: выбор сценариев, выбор и установка начальных условий.</div>
+                    </div>
+                </div>
+                
+                <div class="requirement-item">
+                    <div class="req-icon">•</div>
+                    <div class="req-content">
+                        <div class="req-desc">Возможность сброса модели, паузы и продолжения.</div>
+                    </div>
+                </div>
+                
+                <div class="requirement-item">
+                    <div class="req-icon">•</div>
+                    <div class="req-content">
+                        <div class="req-desc">Сценарий сравнения двух моделей с разными начальными условиями.</div>
+                    </div>
+                </div>
+                
+                <div class="requirement-item">
+                    <div class="req-icon">•</div>
+                    <div class="req-content">
+                        <div class="req-desc">Визуализация уравнений и ключевых значений.</div>
+                    </div>
+                </div>
+                
+                <div class="requirement-item">
+                    <div class="req-icon">•</div>
+                    <div class="req-content">
+                        <div class="req-desc">Реализовать возможность изменения параметров в реальном времени.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Архитектура не для MVP</h2>
+            
+            <p>TBU</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Веб-приложение для моделирования экономических отношений, 2025</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Математическая модель Солоу</title>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/default.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Математическая модель</h1>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Главная</a>
+            </div>
+        </header>
+        
+        
+        <div class="section">
+            <h2>Основные предпосылки модели</h2>
+            
+            <div class="equation-block">
+                <p>Уравнения, свойственные закрытой экономике без государственного сектора:</p>
+                <p>
+                    $$ S = I = sY, \quad Y = C + I $$
+                <p>
+            </div>
+            
+            <p>Производственная функция <span class="inline-equation">$ Y(K, L, A) = Y(K, AL) $</span>, где:</p>
+            
+            <div class="variable-list">
+                <div class="variable-item">
+                    <div class="variable-name">$K$</div>
+                    <div class="variable-desc">Капитал</div>
+                </div>
+                <div class="variable-item">
+                    <div class="variable-name">$L$</div>
+                    <div class="variable-desc">Труд</div>
+                </div>
+                <div class="variable-item">
+                    <div class="variable-name"> $A$</div>
+                    <div class="variable-desc">Уровень технологий</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Свойства производственной функции</h2>
+            
+            <div class="equation-block">
+                <p>Постоянная отдача от масштаба
+                    $$ Y(aK, aAL) = aY(K, AL) $$
+                </p>
+            </div>
+            
+            <div class="equation-block">
+                <p>Предельный продукт факторов производства положительный и убывает
+                    $$ \frac{\partial Y}{\partial K} > 0, \quad \frac{\partial Y}{\partial L} > 0, \quad \frac{\partial^2 Y}{\partial K^2} < 0, \quad \frac{\partial^2 Y}{\partial L^2} < 0 $$
+                </p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Условия Инады</h2>
+            
+            <div class="equation-block">
+                <p>
+                    $$ \displaystyle \lim_{K\to 0} \frac{\partial Y}{\partial K} = \lim_{L\to 0} \frac{\partial Y}{\partial L} = +\infty, \quad \displaystyle \lim_{K\to +\infty} \frac{\partial Y}{\partial K} = \lim_{L\to +\infty} \frac{\partial Y}{\partial L} = 0 $$
+                </p>
+            </div>
+            
+            <div class="equation-block">
+                <p>Для производства необходим каждый фактор
+                    $$ Y(K, 0) = Y(0, AL) = 0 $$
+                </p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Динамика факторов производства</h2>
+            
+            <div class="equation-block">
+                <p>
+                    $ L(t) = L_0 e^{nt} $
+                </p>
+                <p>Население (трудовые ресурсы) растет с темпом $n$</p>
+            </div>
+            
+            <div class="equation-block">
+                <p>
+                    $ A(t) = A_0 e^{gt} $
+                </p>
+                <p>Технологический прогресс растет с темпом $g$</p>
+            </div>
+            
+            <div class="variable-list">
+                <div class="variable-item">
+                    <div class="variable-name">$\delta$</div>
+                    <div class="variable-desc">Норма выбытия капитала</div>
+                </div>
+                <div class="variable-item">
+                    <div class="variable-name">$s$</div>
+                    <div class="variable-desc">Норма сбережений</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Основная система уравнений</h2>
+            
+            <div class="equation-block">
+                <div class="math-display">
+                    $
+                    \left\{
+                        \begin{array}{l}
+                            L(t) = L_0 e^{nt}, \\
+                            A(t) = A_0 e^{gt}, \\
+                            Y(t) = F(K(t), A(t)L(t)), \\
+                            I(t) = sY(t), \\
+                            C(t) = (1 - s)Y(t), \\
+                            \frac{\partial K}{\partial t} = I(t) - \delta K(t)
+                        \end{array}
+                    \right.
+                    $
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Начальные условия модели</h2>
+            
+            <div class="equation-block">
+                <div class="math-display">
+                    $
+                    \left\{
+                        \begin{array}{l}
+                            K(0) = K_0 > 0, \\
+                            L(0) = L_0 > 0, \\
+                            A(0) = A_0 > 0, \\
+                            Y(0) = F(K_0, A_0L_0)
+                        \end{array}
+                    \right.
+                    $
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Используемая производственная функция</h2>
+            
+            <div class="equation-block">
+                <p>Функция Кобба-Дугласа</p>
+                <div class="math-display">
+                    $ Y(K, AL) = K^\alpha (AL)^{1 - \alpha} $
+                </div>
+           </div>
+        </div>
+
+
+        <div class="section">
+            <h2>Переход к интесивной форме</h2>
+
+            <div class="equation-block">
+                <p>Пусть $k$ это уровень капиталовооруженности на единицу эффективного труда, тогда:
+                    $$
+                    k = \frac{K}{AL}, \quad y = \frac{Y}{AL} = \frac{F(K, AL)}{AL} = F\left(\frac{K}{AL}, \frac{AL}{AL}\right)
+                    $$
+                    где $y$ - выпуск на единицу эффективного труда.
+                </p>
+            </div>
+        </div>
+        
+        <div class="section">
+        <h2>Основное уравнение динамики в интенсивной форме</h2>
+
+        <div class="equation-block">
+            <p>
+                Используя определение капиталовооруженности на единицу эффективного труда
+                $$
+                k = \frac{K}{AL},
+                $$
+                а также уравнение накопления капитала
+                $$
+                \dot K = sY - \delta K,
+                $$
+                получаем:
+                $$
+                \dot{k} = \frac{\dot K}{AL} - \frac{K}{AL}\left(\frac{\dot A}{A} + \frac{\dot L}{L}\right).
+                $$
+            </p>
+            <p>
+                Так как
+                $$
+                \frac{\dot L}{L} = n, \quad \frac{\dot A}{A} = g, \quad y = \frac{Y}{AL} = f(k),
+                $$
+                то основное уравнение модели Солоу в интенсивной форме принимает вид:
+                $$
+                \dot{k}(t) = s f(k(t)) - (\delta + n + g)k(t).
+                $$
+            </p>
+            <p>
+                В случае производственной функции Кобба-Дугласа
+                $$
+                f(k) = k^\alpha,
+                $$
+                поэтому
+                $$
+                \dot{k}(t) = s k(t)^\alpha - (\delta + n + g)k(t).
+                $$
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Стационарное состояние</h2>
+
+        <div class="equation-block">
+            <p>
+                Стационарное состояние определяется условием отсутствия изменений капиталовооруженности:
+                $$
+                \dot{k} = 0.
+                $$
+                Следовательно,
+                $$
+                s f(k^*) = (\delta + n + g)k^*.
+                $$
+            </p>
+            <p>
+                В стационарном состоянии капитал и выпуск на единицу эффективного труда постоянны:
+                $$
+                k(t) = k^*, \quad y(t) = y^* = f(k^*).
+                $$
+                Для функции Кобба-Дугласа получаем:
+                $$
+                s(k^*)^\alpha = (\delta + n + g)k^*,
+                $$
+                откуда
+                $$
+                k^* = \left(\frac{s}{\delta + n + g}\right)^{\frac{1}{1-\alpha}},
+                \quad
+                y^* = (k^*)^\alpha.
+                $$
+            </p>
+            <p>
+                Экономический смысл стационарного состояния состоит в том, что инвестиции на единицу
+                эффективного труда в точности компенсируют амортизацию капитала, рост населения и
+                технологический прогресс. Поэтому величины \(k\) и \(y\) больше не изменяются.
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Основная диаграмма модели Солоу</h2>
+
+        <div class="equation-block">
+            <p>
+                Основная диаграмма строится в координатах \((k, y)\) и содержит две ключевые кривые:
+                $$
+                s f(k)
+                $$
+                и
+                $$
+                (\delta + n + g)k.
+                $$
+            </p>
+            <p>
+                Кривая \(sf(k)\) показывает фактические инвестиции на единицу эффективного труда, а
+                прямая \((\delta + n + g)k\) — так называемые восстановительные инвестиции, необходимые
+                для поддержания постоянного уровня капиталовооруженности.
+            </p>
+            <p>
+                Если
+                $$
+                s f(k) > (\delta + n + g)k,
+                $$
+                то
+                $$
+                \dot{k} > 0,
+                $$
+                и капиталовооруженность растет. Если же
+                $$
+                s f(k) < (\delta + n + g)k,
+                $$
+                то
+                $$
+                \dot{k} < 0,
+                $$
+                и капиталовооруженность уменьшается.
+            </p>
+            <p>
+                Точка пересечения этих двух кривых соответствует стационарному состоянию \(k^*\).
+                При стандартных предпосылках модели Солоу это стационарное состояние является
+                единственным и устойчивым.
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Траектория сбалансированного роста</h2>
+
+        <div class="equation-block">
+            <p>
+                Траектория сбалансированного роста — это такая траектория, на которой основные
+                агрегированные переменные экономики растут с постоянными темпами.
+                В модели Солоу на этой траектории величины на единицу эффективного труда постоянны:
+                $$
+                k = k^*, \quad y = y^*.
+                $$
+            </p>
+            <p>
+                Так как
+                $$
+                K = kAL, \quad Y = yAL,
+                $$
+                а \(k\) и \(y\) постоянны, то капитал и выпуск растут тем же темпом, что и эффективный труд:
+                $$
+                g_K = g_Y = n + g.
+                $$
+            </p>
+            <p>
+                Выпуск на одного работника равен
+                $$
+                \frac{Y}{L} = Ay,
+                $$
+                поэтому на траектории сбалансированного роста его темп роста равен:
+                $$
+                g_{Y/L} = g.
+                $$
+            </p>
+            <p>
+                Таким образом, в модели Солоу долгосрочный рост выпуска на одного работника определяется
+                исключительно темпом технологического прогресса.
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Золотое правило накопления</h2>
+
+        <div class="equation-block">
+            <p>
+                Потребление на единицу эффективного труда определяется как
+                $$
+                c = y - sy = f(k) - sf(k).
+                $$
+                На траектории сбалансированного роста из условия
+                $$
+                sf(k) = (\delta + n + g)k
+                $$
+                получаем:
+                $$
+                c(k) = f(k) - (\delta + n + g)k.
+                $$
+            </p>
+            <p>
+                Золотое правило накопления — это такой уровень капиталовооруженности \(k_{GR}\), при
+                котором потребление на единицу эффективного труда максимально. Условие первого порядка:
+                $$
+                f'(k_{GR}) = \delta + n + g.
+                $$
+            </p>
+            <p>
+                Для функции Кобба-Дугласа
+                $$
+                f(k) = k^\alpha, \quad f'(k) = \alpha k^{\alpha - 1},
+                $$
+                поэтому уровень капиталовооруженности по золотому правилу определяется из уравнения
+                $$
+                \alpha k_{GR}^{\alpha - 1} = \delta + n + g.
+                $$
+            </p>
+            <p>
+                В модели Кобба-Дугласа норма сбережений, соответствующая золотому правилу, совпадает
+                с эластичностью выпуска по капиталу:
+                $$
+                s_{GR} = \alpha.
+                $$
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Процентная ставка</h2>
+
+        <div class="equation-block">
+            <p>
+                В условиях совершенной конкуренции ставка доходности капитала определяется его
+                предельным продуктом. Для фирмы выполняется условие:
+                $$
+                F_K'(K, AL) = r + \delta,
+                $$
+                где \(r\) — процентная ставка, а \(\delta\) — норма амортизации.
+            </p>
+            <p>
+                В интенсивной форме это условие записывается как
+                $$
+                r = f'(k) - \delta.
+                $$
+                Для функции Кобба-Дугласа:
+                $$
+                r = \alpha k^{\alpha - 1} - \delta.
+                $$
+            </p>
+            <p>
+                Если выполняется золотое правило накопления, то
+                $$
+                f'(k_{GR}) = \delta + n + g.
+                $$
+                Тогда процентная ставка равна
+                $$
+                r = f'(k_{GR}) - \delta = n + g.
+                $$
+            </p>
+            <p>
+                Это означает, что в точке золотого правила чистая доходность капитала совпадает с суммой
+                темпов роста населения и технологического прогресса.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Веб-приложение для моделирования экономических отношений, 2025</p>
+    </footer>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            },
+            startup: {
+                ready: () => {
+                    MathJax.startup.defaultReady();
+                    console.log('MathJax инициализирован');
+                }
+            }
+        };
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

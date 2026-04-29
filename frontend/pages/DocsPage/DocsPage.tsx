@@ -1,12 +1,10 @@
-import '../../styles/global.css'
+import { MainLayout } from '../../components/Wrapper/Wrappers';
 
 function DocsPage() {
     return (
-        <div className="min-h-screen flex items-center justify-center bg-white">
-            <h1 className="text-5xl font-bold text-blue-600">
-                That is the DocsPage
-            </h1>
-        </div>
+        <MainLayout>
+            
+        </MainLayout>
     )
 }
 

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crazy-barbarian.org</title>
+    <style>
+        :root {
+            --primary-blue: #3498db;
+            --light-blue: #ebf5fb;
+            --medium-blue: #aed6f1;
+            --dark-gray: #2c3e50;
+            --medium-gray: #7f8c8d;
+            --light-gray: #f8f9fa;
+            --border-gray: #d5dbdb;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
+            color: var(--dark-gray);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 40px rgba(52, 152, 219, 0.15);
+            border: 1px solid var(--border-gray);
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            color: var(--medium-gray);
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        
+        .project-card {
+            background: linear-gradient(135deg, var(--light-blue) 0%, rgba(52, 152, 219, 0.05) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--medium-blue);
+            margin: 40px 0;
+            text-align: left;
+        }
+        
+        .project-title {
+            color: var(--primary-blue);
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .project-title:before {
+            content: "📊";
+            font-size: 1.2em;
+        }
+        
+        .project-link {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary-blue);
+        }
+        
+        .project-link:hover {
+            background-color: white;
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+        }
+        
+        .footer {
+            margin-top: 50px;
+            color: var(--medium-gray);
+            font-size: 0.9em;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-gray);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>crazy-barbarian.org</h1>
+        <p class="subtitle">Личный домен для проектов и экспериментов</p>
+        
+        <div class="project-card">
+            <div class="project-title">Модель экономического роста Солоу</div>
+            <p>Веб-приложение для численного моделирования и визуализации модели экономического роста Солоу. Курсовая работа по моделированию экономических отношений.</p>
+            <a href="/WebSolow/" class="project-link">Перейти к проекту →</a>
+        </div>
+        
+        <div class="footer">
+            <p>crazy-barbarian.org, 2025</p>
+        </div>
+    </div>
+</body>
+</html>
