@@ -12,7 +12,7 @@ export function MainLayout({ children } : {children : React.ReactNode}) {
             </header>
             
             <main className="flex-1 flex items-center justify-center">
-                <div className="container mx-auto px-4">
+                <div className="container px-4">
                     {children}
                 </div>
             </main>

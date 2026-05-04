@@ -36,7 +36,7 @@ function ArchPage() {
     └── utils`}</CodeBlock>
 
                     <p className=''>
-                        Используемый стэк: <Quoted>React + TailWindCSS + Vite</Quoted>
+                        Используемый стек: <Quoted>React + TailWindCSS + Vite</Quoted>
                     </p>
                 </div>
 
