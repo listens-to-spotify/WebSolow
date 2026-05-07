@@ -21,9 +21,9 @@ function AppPage() {
 	const trajectoryRef = useRef<TrajectoryPoint[]>([])
 
 	/* =================== CHART REFS =================== */
-	const phaseChartRef = useRef<Chart | null>(null)
-	const dynChartRef = useRef<Chart | null>(null)
-	const growthChartRef = useRef<Chart | null>(null)
+	const phaseChartRef = useRef<Chart>(null)
+	const dynChartRef = useRef<Chart>(null)
+	const growthChartRef = useRef<Chart>(null)
 
 	/* =================== CANVAS REFS =================== */
 	const phaseCanvas = useRef<HTMLCanvasElement>(null)
@@ -296,6 +296,8 @@ function AppPage() {
 		initDynamicsChart()
 		initGrowthChart()
 		updatePhaseChart()
+		updateDynamicsChart()
+		updateGrowthChart()
 
 		return () => {
 			phaseChartRef.current?.destroy()

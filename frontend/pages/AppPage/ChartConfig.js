@@ -118,7 +118,7 @@ export const GrowthChartConfig = {
             y: {
                 title: {
                     display: true,
-                    text: 'rate'
+                    text: 'r, gw'
                 }, 
                 min: -0.1, 
                 max: 0.4

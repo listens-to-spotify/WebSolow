@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         Component: MathModelPage,
     },
     {
-        path: "arch",
+        path: "/arch",
         Component: ArchPage,
     }
 ]);

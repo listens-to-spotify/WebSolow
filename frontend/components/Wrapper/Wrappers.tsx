@@ -52,7 +52,7 @@ export function CodeBlock({ children } : { children : React.ReactNode}) {
 
 export function Latex({ text } : { text : string}) {
     return (
-        <div className="bg-gray-100 rounded-2xl px-3 py-3 mt-5 mb-5">
+        <div className="bg-gray-100 rounded-2xl px-3 py-3">
             <BlockMath math={text}/>
         </div>
     )
