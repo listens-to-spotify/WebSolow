@@ -1,54 +1,18 @@
 import { MainLayout, Latex, Inline } from "../../components/Wrapper/Wrappers";
-import { useRef, useEffect, useCallback } from 'react';
 import 'katex/dist/katex.min.css';
 import { FaWikipediaW } from "react-icons/fa";
 import { HoverCard } from "../../components/Hovers/HoverCard";
-import { InlineMath } from 'react-katex';
 
-import { PhaseExampleChart, PhaseExampleChartEq, DynamicExampleChartEq, GrowthExampleChartEq} from "./MathModelCharts";
+import { PhaseExampleChart } from "./components/PhaseExampleChart";
+import { PhaseExampleChartEq } from "./components/PhaseExampleChartEq";
+import { DynamicExampleChartEq } from "./components/DynamicExampleChartEq";
+import { GrowthExampleChartEq } from "./components/GrowthExampleChartEq";
+import { PhaseExampleChartNeq } from "./components/PhaseExampleChartNeq";
+import { DynamicExampleChartNeq } from "./components/DynamicExampleChartNeq";
+import { GrowthExampleChartNeq } from "./components/GrowthExampleChartNeq";
 
-import { TfiLineDashed } from "react-icons/tfi";
-import { TfiLayoutLineSolid } from "react-icons/tfi";
 
 function MathModelPage() {
-    const phaseChart = useRef(new PhaseExampleChart())
-    const phaseChartEq = useRef(new PhaseExampleChartEq())
-    const dynamicChartEq = useRef(new DynamicExampleChartEq())
-    const growthChartEq = useRef(new GrowthExampleChartEq())
-
-    useEffect(() => {
-        phaseChart.current.initPhaseChart()
-        phaseChart.current.updatePhaseChart()
-
-        phaseChartEq.current.initPhaseChart()
-        phaseChartEq.current.updatePhaseChart()
-
-        dynamicChartEq.current.initDynamicsChart()
-        dynamicChartEq.current.updateDynamicsChart()
-
-        growthChartEq.current.initGrowthChart()
-        growthChartEq.current.updateGrowthChart()
-
-
-        return () => {
-            phaseChart
-                .current?.phaseChartRef
-                .current?.destroy()
-
-            phaseChartEq
-                .current?.phaseChartRef
-                .current?.destroy()
-
-            dynamicChartEq
-                .current?.chartRef
-                .current?.destroy()
-            
-            growthChartEq
-                .current?.chartRef
-                .current?.destroy()
-        }
-    }, [])
-
     return (
         <MainLayout>
             <div className="flex flex-col items-center mb-10">
@@ -63,7 +27,7 @@ function MathModelPage() {
                 </div>
                 
 
-                <div className="min-w-3xl max-w-3xl space-y-4">
+                <div className="min-w-3xl max-w-5xl space-y-4">
                     <p className="mb-4">
                         <text className="font-bold">Модель Солоу</text> — модель экзогенного экономического роста, основанная на экзогенной норме сбережений (<Inline text="s" />) и неоклассической производственной функции.
                     </p>
@@ -251,44 +215,9 @@ function MathModelPage() {
 
                     <p>Нахождение стационарного состояния можно представить в графическом виде, изобразив уравнение в фазовой плоскости.</p>
                     
-                    <div className="flex justify-center items-center">
-                        <div className="p-2 aspect-[3/2] w-4/5">
-                            <canvas ref={phaseChart.current.phaseCanvas}></canvas>
-                        </div>  
-                        <div className="w-1/5">
-                            <a className="text-xs flex" color="rgba(59, 130, 246, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(59, 130, 246, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="y = f(k) = k^\alpha" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(34, 197, 94, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(34, 197, 94, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="s = s f(k)" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(239, 68, 68, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="(n + g + \delta) k" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
-                                <TfiLineDashed
-                                    color="rgba(239, 68, 68, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="k^*" />
-                            </a>
-                        </div>
-                    </div>
-                    
+                    <PhaseExampleChart />
 
-                    <p>Свойтва, которые следуют из стационарного состояния:</p>
+                    <p>Свойства, которые следуют из стационарного состояния:</p>
 
                     <div className="space-y-2 ml-6">
                         <li>
@@ -384,122 +313,47 @@ function MathModelPage() {
                         Шоки не меняющие ТСР
                     </h3>
 
-                    Пусть в момент <Inline text="t_0 = 50" /> произошел шок, который привел к дискретному уменьшению капиталовооруженности с уровня <Inline text="k^*" /> до <Inline text="k'" />. Так как ТСР не поменялась, все показатели вернутся к исходному уровню.
+                    <p>
+                        Пусть в момент <Inline text="t_0 = 50" /> произошел шок, который привел к дискретному уменьшению капиталовооруженности с уровня <Inline text="k^*" /> до <Inline text="k'" />. Так как ТСР не поменялась, все показатели вернутся к стационарному состоянию.
+                    </p>
+
+                    <PhaseExampleChartEq />
+
+                    <div className="flex justify-center items-center mb-8">
+                        <div className="w-1/2">
+                            <DynamicExampleChartEq />
+                        </div>  
+                        <div className="w-1/2">
+                            <GrowthExampleChartEq />
+                        </div>
+                    </div>
+
+                    <p>
+                        Характер выпуклости у каждого из графика динамики (возвращение к исходному уровню с убывающим темпом) объясняется
+                        <HoverCard
+                            text="свойством"
+                            card={<p>
+                                При отклонении от ТСР (например <Inline text="k < k^*" />), экономика с убывающим темпом возвращается в равновесие (<Inline text="k" /> растет до <Inline text="k^*" />).
+                            </p>}
+                        />, следующим из ТСР.
+                    </p>
                     
-                    <div className="flex justify-center items-center">
-                        <div className="p-2 aspect-[3/2] w-4/5">
-                            <canvas ref={phaseChartEq.current.phaseCanvas}></canvas>
+                    <h3 className="text-xl font-bold text-blue-400 mb-4">
+                        Шоки меняющие ТСР
+                    </h3>
+                    
+                    <p>
+                        Пусть в момент <Inline text="t_0 = 50" /> произошел шок сбережений, который привел уменьшению нормы сбережений с уровня <Inline text="s=0.3" /> до <Inline text="s=0.2" />. Так поменялся параметр модели, прямая <Inline text="sf(k)" /> сдвигается вниз для каждого <Inline text="k" /> в 1.5 раза. ТСР меняется, и как следствие меняются значения <Inline text="k^*, \ y^*, \ c^*"/>, процентная ставка и равновесные темпы роста.
+                    </p>
+
+                    <PhaseExampleChartNeq />
+
+                    <div className="flex justify-center items-center mb-8">
+                        <div className="w-1/2">
+                            <DynamicExampleChartNeq />
                         </div>  
-                        <div className="w-1/5">
-                            <a className="text-xs flex" color="rgba(59, 130, 246, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(59, 130, 246, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="y = f(k) = k^\alpha" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(34, 197, 94, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(34, 197, 94, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="s = s f(k)" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(239, 68, 68, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="(n + g + \delta) k" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
-                                <TfiLineDashed
-                                    color="rgba(239, 68, 68, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="k^*" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
-                                <TfiLineDashed
-                                    color='rgba(255, 140, 0, 0.5)'
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="k'" />
-                            </a>
-                        </div>
-                    </div>
-
-                    <div className="flex justify-center items-center">
-                        <div className="p-2 aspect-[3/2] w-4/5">
-                            <canvas ref={dynamicChartEq.current.canvas}></canvas>
-                        </div>  
-                        <div className="w-1/5">
-                            <a className="text-xs flex" color="rgba(59, 130, 246, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(59, 130, 246, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="k" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(34, 197, 94, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(34, 197, 94, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="y" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(239, 68, 68, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="c" />
-                            </a>
-                            <a className="text-xs flex" color='rgba(138, 138, 138, 0.5)'>
-                                <TfiLayoutLineSolid
-                                    color="rgba(138, 138, 138, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="t_0" />
-                            </a>
-
-                        </div>
-                    </div>
-
-                    <div className="flex justify-center items-center">
-                        <div className="p-2 aspect-[3/2] w-4/5">
-                            <canvas ref={growthChartEq.current.canvas}></canvas>
-                        </div>  
-                        <div className="w-1/5">
-                            <a className="text-xs flex" color="rgba(59, 130, 246, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(59, 130, 246, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="r" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(34, 197, 94, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(34, 197, 94, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="g_w" />
-                            </a>
-                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
-                                <TfiLayoutLineSolid
-                                    color="rgba(239, 68, 68, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="g_y" />
-                            </a>
-                            <a className="text-xs flex" color='rgba(138, 138, 138, 0.5)'>
-                                <TfiLayoutLineSolid
-                                    color="rgba(138, 138, 138, 0.5)"
-                                    className="min-w-5 min-h-5 mr-2"
-                                />
-                                <InlineMath math="t_0" />
-                            </a>
-
+                        <div className="w-1/2">
+                            <GrowthExampleChartNeq />
                         </div>
                     </div>
                 </div>
