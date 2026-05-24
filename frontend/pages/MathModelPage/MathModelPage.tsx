@@ -1,61 +1,51 @@
 import { MainLayout, Latex, Inline } from "../../components/Wrapper/Wrappers";
-import { useRef, useEffect, useCallback } from 'react'
-import { SolowModel, type TrajectoryPoint } from '../../utils/solowCore'
-import { Chart } from 'chart.js'
+import { useRef, useEffect, useCallback } from 'react';
 import 'katex/dist/katex.min.css';
 import { FaWikipediaW } from "react-icons/fa";
 import { HoverCard } from "../../components/Hovers/HoverCard";
-import { PhaseExampleChartConfig } from "./ChartConfig.js"
 import { InlineMath } from 'react-katex';
+
+import { PhaseExampleChart, PhaseExampleChartEq, DynamicExampleChartEq, GrowthExampleChartEq} from "./MathModelCharts";
 
 import { TfiLineDashed } from "react-icons/tfi";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
 
 function MathModelPage() {
-
-    const params = {
-        s: 0.3,
-        delta: 0.05,
-        n: 0.02,
-        g: 0.05,
-        alpha: 0.5,
-        k0: 0.5
-    }
-
-    const trajectoryRef = useRef<TrajectoryPoint[]>([])
-    const modelRef = useRef(new SolowModel(params))
-    const phaseChartRef = useRef<Chart>(null)
-    const phaseCanvas = useRef<HTMLCanvasElement>(null)
-
-    const initPhaseChart = useCallback(() => {
-        if (!phaseCanvas.current) return
-        phaseChartRef.current = new Chart(phaseCanvas.current, PhaseExampleChartConfig)
-        // handleStart()
-    }, [])
-
-    const updatePhaseChart = useCallback(() => {
-        const chart = phaseChartRef.current
-        if (!chart) return
-
-        const model = modelRef.current
-		const kMax = Math.max(5, model.kStar * 2, model.kStar * 2)
-
-		chart.data.datasets[0].data = model.productionFunctionData(0, kMax)
-		chart.data.datasets[1].data = model.sYLine(0, kMax)
-		chart.data.datasets[2].data = model.amortizationLine(0, kMax)
-        chart.data.datasets[3].data = [{x : model.kStar, y: 0}, {x: model.kStar, y: params.s * model.y(model.kStar)}, {x: model.kStar, y: model.y(model.kStar)}]
-
-        chart.options.scales!.x!.max = kMax
-		chart.options.scales!.y!.max = Math.pow(kMax, model.alpha)
-		chart.update('none')
-    }, [])
+    const phaseChart = useRef(new PhaseExampleChart())
+    const phaseChartEq = useRef(new PhaseExampleChartEq())
+    const dynamicChartEq = useRef(new DynamicExampleChartEq())
+    const growthChartEq = useRef(new GrowthExampleChartEq())
 
     useEffect(() => {
-        initPhaseChart()
-        updatePhaseChart()
+        phaseChart.current.initPhaseChart()
+        phaseChart.current.updatePhaseChart()
+
+        phaseChartEq.current.initPhaseChart()
+        phaseChartEq.current.updatePhaseChart()
+
+        dynamicChartEq.current.initDynamicsChart()
+        dynamicChartEq.current.updateDynamicsChart()
+
+        growthChartEq.current.initGrowthChart()
+        growthChartEq.current.updateGrowthChart()
+
 
         return () => {
-            phaseChartRef.current?.destroy()
+            phaseChart
+                .current?.phaseChartRef
+                .current?.destroy()
+
+            phaseChartEq
+                .current?.phaseChartRef
+                .current?.destroy()
+
+            dynamicChartEq
+                .current?.chartRef
+                .current?.destroy()
+            
+            growthChartEq
+                .current?.chartRef
+                .current?.destroy()
         }
     }, [])
 
@@ -263,7 +253,7 @@ function MathModelPage() {
                     
                     <div className="flex justify-center items-center">
                         <div className="p-2 aspect-[3/2] w-4/5">
-                            <canvas ref={phaseCanvas}></canvas>
+                            <canvas ref={phaseChart.current.phaseCanvas}></canvas>
                         </div>  
                         <div className="w-1/5">
                             <a className="text-xs flex" color="rgba(59, 130, 246, 0.5)">
@@ -298,19 +288,9 @@ function MathModelPage() {
                     </div>
                     
 
-                    <p>Некоторые из свойств стационарного состояния:</p>
+                    <p>Свойтва, которые следуют из стационарного состояния:</p>
 
                     <div className="space-y-2 ml-6">
-                        <li>
-                            <HoverCard
-                                text={<div>
-                                    Валовые показатели <Inline text="K" />, <Inline text="C" /> и <Inline text="Y" /> растут с одинаковым постоянным темпом роста
-                                </div>}
-                                card={
-                                    <Latex text="\frac{\dot K}{K} = \frac{\dot C}{C} = \frac{\dot Y}{Y} = g + n" />
-                                }
-                            />
-                        </li>
                         <li>
                             <HoverCard
                                 text={<div>
@@ -321,33 +301,207 @@ function MathModelPage() {
                                 }
                             />
                         </li>
+                        <li>
+                            При отклонении от ТСР (например <Inline text="k < k^*" />), экономика с убывающим темпом возвращается в равновесие (<Inline text="k" /> растет до <Inline text="k^*" />).
+                        </li>
                     </div>
-                    
 
                     <h2 className="text-2xl font-bold text-blue-400 mb-4">
-                        Золотое правило накопления
+                        Процентная ставка и темпы роста
                     </h2>
 
-                    <Latex text="c=f(k)-(\delta+n+g)k" />
+                    <p>Заметим, что <Inline text="f'(k) = MPK" /> — предельный продукт капитала. Иначе говоря — доход владельца за единицу капитала. Учитывая амортизацию, получаем:</p>
 
-                    <Latex text="f'(k_{GR})=\delta+n+g" />
-
-                    <Latex text="s_{GR}=\alpha" />
-
-                    <h2 className="text-2xl font-bold text-blue-400 mb-4">
-                        Процентная ставка
-                    </h2>
-
-                    <Latex text="r=f'(k)-\delta" />
+                    <Latex text="r = f'(k)-\delta" />
 
                     <Latex text="r=\alpha k^{\alpha-1}-\delta" />
-
-                    <p className="mt-4">
-                        В точке золотого правила:
+                    
+                    <p>
+                        Найдем темпы роста <Inline text="Y" />, <Inline text="K" /> и <HoverCard
+                            text={<Inline text="w"/>}
+                            card={<Latex text="w = \frac{Y}{L}" />}
+                        />:
                     </p>
 
-                    <Latex text="r=n+g" />
+                    <Latex text="\begin{aligned}
+                        Y &= y \cdot A \cdot L \\
+                        \log Y &= \log y + \log A + \log L \\
+                        (\log Y)'_t &= (\log y)'_t + (\log A)'_t + (\log L)'_t \\
+                        \frac{\dot Y}{Y} &= 
+                                        \underbrace{\frac{\dot y}{y}}_0 +
+                                        \underbrace{\frac{\dot A}{A}}_g +
+                                        \underbrace{\frac{\dot L}{L}}_n \\
+                        g_Y = \frac{\dot Y}{Y} &= g + n
 
+
+                    \end{aligned}" />
+
+                    <p>
+                        <HoverCard 
+                            text="Аналогично"
+                            card={
+                                <Latex text="\begin{aligned}
+                                    K &= k \cdot A \cdot L \\
+                                    \log K &= \log k + \log A + \log L \\
+                                    (\log K)'_t &= (\log k)'_t + (\log A)'_t + (\log L)'_t \\
+                                    \frac{\dot K}{K} &= 
+                                                    \underbrace{\frac{\dot k}{k}}_0 +
+                                                    \underbrace{\frac{\dot A}{A}}_g +
+                                                    \underbrace{\frac{\dot L}{L}}_n \\
+                                    g_K = \frac{\dot K}{K} &= g + n
+                                \end{aligned}"
+                                />
+                            }
+                        /> для <Inline text="K" /> {" "} : <Inline text="g_K = g + n" />. 
+                    </p>
+
+                    <Latex text="\begin{aligned}
+                        w &= y \cdot A \\
+                        \log w &= \log y + \log A \\
+                        (\log w)'_t &= (\log y)'_t + (\log A)'_t \\
+                        \frac{\dot w}{w} &= 
+                                        \underbrace{\frac{\dot y}{y}}_0 +
+                                        \underbrace{\frac{\dot A}{A}}_g \\
+                        g_w = \frac{\dot w}{w} &= g
+                    \end{aligned}" />
+                    
+                    <h2 className="text-2xl font-bold text-blue-400 mb-4">
+                        Динамика показателей при шоках
+                    </h2>
+
+                    <p>Шоки можно разделить на два типа:</p>
+                    
+                    <div className="space-y-2 ml-6">
+                        <li>
+                            Не меняющие ТСР (<Inline text="k^*" /> остается прежним). Это дискретное изменение абсолютных или удельных показателей, таких как <Inline text="K,\ A,\ L, \ k"/>.
+                       </li>
+                        <li>
+                            Меняющие ТСР (<Inline text="k^*" /> меняется). Это дискретное изменение параметров модели <Inline text="s,\ n,\ g,\ \delta"/>, приводящее к движению графиков на фазовом портрете.
+                        </li>
+                    </div>
+
+                    <h3 className="text-xl font-bold text-blue-400 mb-4">
+                        Шоки не меняющие ТСР
+                    </h3>
+
+                    Пусть в момент <Inline text="t_0 = 50" /> произошел шок, который привел к дискретному уменьшению капиталовооруженности с уровня <Inline text="k^*" /> до <Inline text="k'" />. Так как ТСР не поменялась, все показатели вернутся к исходному уровню.
+                    
+                    <div className="flex justify-center items-center">
+                        <div className="p-2 aspect-[3/2] w-4/5">
+                            <canvas ref={phaseChartEq.current.phaseCanvas}></canvas>
+                        </div>  
+                        <div className="w-1/5">
+                            <a className="text-xs flex" color="rgba(59, 130, 246, 0.5)">
+                                <TfiLayoutLineSolid
+                                    color="rgba(59, 130, 246, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="y = f(k) = k^\alpha" />
+                            </a>
+                            <a className="text-xs flex" color="rgba(34, 197, 94, 0.5)">
+                                <TfiLayoutLineSolid
+                                    color="rgba(34, 197, 94, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="s = s f(k)" />
+                            </a>
+                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
+                                <TfiLayoutLineSolid
+                                    color="rgba(239, 68, 68, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="(n + g + \delta) k" />
+                            </a>
+                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
+                                <TfiLineDashed
+                                    color="rgba(239, 68, 68, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="k^*" />
+                            </a>
+                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
+                                <TfiLineDashed
+                                    color='rgba(255, 140, 0, 0.5)'
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="k'" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div className="flex justify-center items-center">
+                        <div className="p-2 aspect-[3/2] w-4/5">
+                            <canvas ref={dynamicChartEq.current.canvas}></canvas>
+                        </div>  
+                        <div className="w-1/5">
+                            <a className="text-xs flex" color="rgba(59, 130, 246, 0.5)">
+                                <TfiLayoutLineSolid
+                                    color="rgba(59, 130, 246, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="k" />
+                            </a>
+                            <a className="text-xs flex" color="rgba(34, 197, 94, 0.5)">
+                                <TfiLayoutLineSolid
+                                    color="rgba(34, 197, 94, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="y" />
+                            </a>
+                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
+                                <TfiLayoutLineSolid
+                                    color="rgba(239, 68, 68, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="c" />
+                            </a>
+                            <a className="text-xs flex" color='rgba(138, 138, 138, 0.5)'>
+                                <TfiLayoutLineSolid
+                                    color="rgba(138, 138, 138, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="t_0" />
+                            </a>
+
+                        </div>
+                    </div>
+
+                    <div className="flex justify-center items-center">
+                        <div className="p-2 aspect-[3/2] w-4/5">
+                            <canvas ref={growthChartEq.current.canvas}></canvas>
+                        </div>  
+                        <div className="w-1/5">
+                            <a className="text-xs flex" color="rgba(59, 130, 246, 0.5)">
+                                <TfiLayoutLineSolid
+                                    color="rgba(59, 130, 246, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="r" />
+                            </a>
+                            <a className="text-xs flex" color="rgba(34, 197, 94, 0.5)">
+                                <TfiLayoutLineSolid
+                                    color="rgba(34, 197, 94, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="g_w" />
+                            </a>
+                            <a className="text-xs flex" color="rgba(239, 68, 68, 0.5)">
+                                <TfiLayoutLineSolid
+                                    color="rgba(239, 68, 68, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="g_y" />
+                            </a>
+                            <a className="text-xs flex" color='rgba(138, 138, 138, 0.5)'>
+                                <TfiLayoutLineSolid
+                                    color="rgba(138, 138, 138, 0.5)"
+                                    className="min-w-5 min-h-5 mr-2"
+                                />
+                                <InlineMath math="t_0" />
+                            </a>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </MainLayout>
