@@ -1,8 +1,7 @@
 import type React from "react";
 import { Link } from 'react-router-dom';
 import { AiFillGithub } from "react-icons/ai";
-import { BlockMath, InlineMath } from 'react-katex';
-import 'katex/dist/katex.min.css'
+import { BlockMath, InlineMath } from '../../utils/katex'
 
 
 export function MainLayout({ children } : {children? : React.ReactNode}) {

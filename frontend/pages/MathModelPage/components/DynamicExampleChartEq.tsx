@@ -5,7 +5,7 @@ import {
     DynamicExampleChartEqConfig,
 } from "./ChartConfig.js"
 
-import { InlineMath } from 'react-katex';
+import { InlineMath } from '../../../utils/katex'
 import { TfiLayoutLineSolid, TfiLineDashed} from "react-icons/tfi";
 
 export function DynamicExampleChartEq() {

@@ -1,6 +1,4 @@
 import { MainLayout, Latex, Inline } from "../../components/Wrapper/Wrappers";
-import 'katex/dist/katex.min.css';
-
 import { FaWikipediaW } from "react-icons/fa";
 import { HoverCard } from "../../components/Hovers/HoverCard";
 
@@ -11,7 +9,7 @@ import { GrowthExampleChartEq } from "./components/GrowthExampleChartEq";
 import { PhaseExampleChartNeq } from "./components/PhaseExampleChartNeq";
 import { DynamicExampleChartNeq } from "./components/DynamicExampleChartNeq";
 import { GrowthExampleChartNeq } from "./components/GrowthExampleChartNeq";
-import { InlineMath, BlockMath } from "react-katex";
+import { BlockMath } from "../../utils/katex";
 
 interface NavItem {
 	label: string
@@ -74,14 +72,7 @@ function MathModelPage() {
 
 						<p>В модели рассматривается закрытая экономика без государственного сектора, поэтому выпуск тратится на потребление (<Inline text="C" />) и сбережения (<Inline text="S" />), равные инвестициям (<Inline text="I" />):</p>
 
-						<Latex text="Y = C + I, \quad I = S = sY" />
-						<InlineMath math="Y = C + I, \\quad I = S = sY" />
-						<InlineMath>{"Y = C + I, \\quad I = S = sY"}</InlineMath>
-						<div className="bg-gray-100 rounded-2xl px-3 py-3">
-							<BlockMath math="Y = C + I, \\quad I = S = sY" />
-						</div>
-						<InlineMath math="\int_0^\infty x^2 dx"/>
-						<BlockMath math="\int_0^\infty x^2 dx"/>
+						<BlockMath>{"Y = C + I, \\quad I = S = sY"}</BlockMath>
 
 						<p className="mt-4">
 							Производственная функция {" "}

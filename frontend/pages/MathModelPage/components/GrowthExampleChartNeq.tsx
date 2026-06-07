@@ -5,7 +5,7 @@ import {
     GrowthExampleChartNeqConfig,
 } from "./ChartConfig.js"
 
-import { InlineMath } from 'react-katex';
+import { InlineMath } from '../../../utils/katex'
 import { TfiLayoutLineSolid } from "react-icons/tfi";
 import { TfiLineDashed } from "react-icons/tfi";
 

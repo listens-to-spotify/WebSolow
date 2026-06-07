@@ -5,8 +5,7 @@ import { MainLayout } from '../../components/Wrapper/Wrappers'
 import { PhaseChartNode } from './components/PhaseChartNode'
 import { DynamicsChartNode } from './components/DynamicsChartNode'
 import { GrowthChartNode } from './components/GrowthChartNode'
-import 'katex/dist/katex.min.css'
-import { InlineMath } from 'react-katex';
+import { InlineMath } from '../../utils/katex'
 
 
 Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, Filler)

@@ -5,7 +5,7 @@ import {
     PhaseExampleChartEqConfig,
 } from "./ChartConfig.js"
 
-import { InlineMath } from 'react-katex';
+import { InlineMath } from '../../../utils/katex'
 import { TfiLineDashed } from "react-icons/tfi";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
 

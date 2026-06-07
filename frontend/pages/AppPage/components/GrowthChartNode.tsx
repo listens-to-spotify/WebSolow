@@ -3,7 +3,7 @@ import { type TrajectoryPoint } from '../../../utils/solowCore'
 import { GrowthChartConfig } from './ChartConfig'
 import { useChart } from './useChart'
 import { TfiLayoutLineSolid } from "react-icons/tfi";
-import { InlineMath } from 'react-katex';
+import { InlineMath } from '../../../utils/katex'
 
 const latexMap: Record<number, string> = {
 	0: 'r(t)',

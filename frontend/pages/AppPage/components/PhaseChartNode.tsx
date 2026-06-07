@@ -3,7 +3,7 @@ import { SolowModel } from '../../../utils/solowCore'
 import { PhaseChartConfig } from './ChartConfig'
 import { useChart } from './useChart'
 import { TfiLayoutLineSolid, TfiLineDashed } from "react-icons/tfi";
-import { InlineMath } from 'react-katex';
+import { InlineMath } from '../../../utils/katex'
 
 const latexMap: Record<number, string> = {
 	0: 'y = k^{\\alpha}',
