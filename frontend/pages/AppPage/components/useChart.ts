@@ -1,6 +1,7 @@
 import { useRef, useCallback, useEffect } from 'react'
 import { Chart } from 'chart.js'
 
+// Init, destroy hook
 export function useChart(canvasRef: React.RefObject<HTMLCanvasElement | null>, config: any) {
 	const chartRef = useRef<Chart | null>(null)
 

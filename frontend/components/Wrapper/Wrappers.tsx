@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AiFillGithub } from "react-icons/ai";
 import { BlockMath, InlineMath } from '../../utils/katex'
 
-
+// Осноная обертка/контейнер страницы
 export function MainLayout({ children } : {children? : React.ReactNode}) {
     return (
         <div className="h-screen bg-white flex flex-col">
@@ -42,6 +42,7 @@ export function Quoted({ children } : { children : React.ReactNode}) {
         </code>
     )
 }
+
 
 export function CodeBlock({ children } : { children : React.ReactNode}) {
     return (
