@@ -9,4 +9,9 @@ export default defineConfig({
       react(),
       tailwindcss(),
   ],
+  build: {
+    commonjsOptions: {
+      transformMixedEsModules: true, // Forces Vite to properly bundle mixed CommonJS/ESM modules
+    },
+  },
 })

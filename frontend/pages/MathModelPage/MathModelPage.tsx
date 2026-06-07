@@ -13,20 +13,6 @@ import { DynamicExampleChartNeq } from "./components/DynamicExampleChartNeq";
 import { GrowthExampleChartNeq } from "./components/GrowthExampleChartNeq";
 import { InlineMath, BlockMath } from "react-katex";
 
-// fixLatex.ts
-export function fixLatex(raw: string): string {
-  return raw
-    .replace(/\\quad/g, '\\\\quad')
-    .replace(/\\qquad/g, '\\\\qquad')
-    .replace(/\\text{/g, '\\\\text{')
-    .replace(/\\alpha/g, '\\\\alpha')
-    .replace(/\\beta/g, '\\\\beta')
-    .replace(/\\delta/g, '\\\\delta')
-    .replace(/\\int/g, '\\\\int')
-    .replace(/\\infty/g, '\\\\infty')
-    .replace(/\\sum/g, '\\\\sum');
-}
-
 interface NavItem {
 	label: string
 	level: number

@@ -4,27 +4,6 @@ import { AiFillGithub } from "react-icons/ai";
 import { BlockMath, InlineMath } from 'react-katex';
 import 'katex/dist/katex.min.css'
 
-// fixLatex.ts
-export function fixLatex(raw: string): string {
-  return raw
-    .replace(/\\quad/g, '\\\\quad')
-    .replace(/\\qquad/g, '\\\\qquad')
-    .replace(/\\text{/g, '\\\\text{')
-    .replace(/\\alpha/g, '\\\\alpha')
-    .replace(/\\beta/g, '\\\\beta')
-    .replace(/\\delta/g, '\\\\delta')
-    .replace(/\\int/g, '\\\\int')
-    .replace(/\\infty/g, '\\\\infty')
-    .replace(/\\sum/g, '\\\\sum');
-}
-
-export function Latex({ text }: { text: string }) {
-  return <BlockMath math={fixLatex(text)} renderError={renderError} />;
-}
-
-export function Inline({ text }: { text: string }) {
-  return <InlineMath math={fixLatex(text)} renderError={renderError} />;
-}
 
 export function MainLayout({ children } : {children? : React.ReactNode}) {
     return (
@@ -81,7 +60,7 @@ function renderError(error: Error) {
     return <span className="text-red-500 text-xs">{error.message}</span>
 }
 
-export function Latex1({ text } : { text : string}) {
+export function Latex({ text } : { text : string}) {
     return (
         <div className="bg-gray-100 rounded-2xl px-3 py-3">
             <BlockMath math={text} renderError={renderError} />
@@ -89,7 +68,7 @@ export function Latex1({ text } : { text : string}) {
     )
 }
 
-export function Inline1({ text } : { text : string}) {
+export function Inline({ text } : { text : string}) {
     return <InlineMath math={text} renderError={renderError} />
     
 }
