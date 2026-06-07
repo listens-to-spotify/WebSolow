@@ -16,7 +16,7 @@ function HomePage() {
                     <div className="flex flex-col sm:flex-col gap-5 justify-center">
                         <NavigationButton text="Приложение" to="/app" />
                         <NavigationButton text="Математическая модель" to="/mathmodel" />
-                        <NavigationButton text="Документация" to="/docs" />
+                        <NavigationButton text="Документация" to="https://github.com/listens-to-spotify/WebSolow/blob/main/README.md" />
                     </div>
                 </div>
             </div>
