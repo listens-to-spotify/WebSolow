@@ -1,171 +1,37 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, Filler } from 'chart.js'
 import { SolowModel, type TrajectoryPoint } from '../../utils/solowCore'
-import { MainLayout } from '../../components/Wrapper/Wrappers'
-import { PhaseChartConfig, DynamicChartConfig, GrowthChartConfig } from './ChartConfig.js'
+import { Inline, MainLayout } from '../../components/Wrapper/Wrappers'
+import { PhaseChartNode } from './components/PhaseChartNode'
+import { DynamicsChartNode } from './components/DynamicsChartNode'
+import { GrowthChartNode } from './components/GrowthChartNode'
+import 'katex/dist/katex.min.css'
+import { InlineMath } from 'react-katex';
 
 Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, Filler)
 
-function AppPage() {
-	/* =================== SETTERS & GETTERS =================== */
-	const [params, setParams] = useState({ s: 0.3, delta: 0.05, n: 0.02, g: 0.05, alpha: 0.5, k0: 0.5 })
-	const [baseParams, setBaseParams] = useState({ s: 0.3, delta: 0.05, n: 0.02, g: 0.05, alpha: 0.5, k0: 0.5 })
-	const [shockApplied, setShockApplied] = useState(false)
-	const [shockParams, setShockParams] = useState({ param: 's', value: '0.3' })
-	const shockParamRef = useRef('s')
-	const [shockCounter, setShockCounter] = useState(0)
+const defaultParams = { s: 0.3, delta: 0.05, n: 0.02, g: 0.05, alpha: 0.5, k0: 0.5 }
 
-	/* =================== CORE MODEL =================== */
+function AppPage() {
+	const [params, setParams] = useState(defaultParams);
+	const [shockParams, setShockParams] = useState({ param: 's', value: '0.3' });
+	const [shockCounter, setShockCounter] = useState(0);
+	const [updateVersion, setUpdateVersion] = useState(0);
+
 	const modelRef = useRef(new SolowModel(params))
 	const baseModelRef = useRef(new SolowModel(params))
 	const trajectoryRef = useRef<TrajectoryPoint[]>([])
+	const shockParamRef = useRef('s')
 
-	/* =================== CHART REFS =================== */
-	const phaseChartRef = useRef<Chart>(null)
-	const dynChartRef = useRef<Chart>(null)
-	const growthChartRef = useRef<Chart>(null)
-
-	/* =================== CANVAS REFS =================== */
-	const phaseCanvas = useRef<HTMLCanvasElement>(null)
-	const dynCanvas = useRef<HTMLCanvasElement>(null)
-	const growthCanvas = useRef<HTMLCanvasElement>(null)
-
-	/* =================== INITIALIZERS =================== */
-	const initPhaseChart = useCallback(() => {
-		if (!phaseCanvas.current) return
-		phaseChartRef.current = new Chart(phaseCanvas.current, PhaseChartConfig)
-	}, [])
-
-	const initGrowthChart = useCallback(() => {
-		if (!growthCanvas.current) return
-
-		growthChartRef.current = new Chart(growthCanvas.current, GrowthChartConfig)
-	}, [])
-
-	const initDynamicsChart = useCallback(() => {
-		if (!dynCanvas.current) return
-		dynChartRef.current = new Chart(dynCanvas.current, DynamicChartConfig)
-	}, [])
-
-	/* =================== UPDATERS =================== */
 	const updateModel = useCallback((newParams: Partial<typeof params>) => {
-		const updated = { ...params, ...newParams }
-		setParams(updated)
-
-		modelRef.current = new SolowModel(updated)
-		baseModelRef.current = new SolowModel(baseParams)
-	}, [params, baseParams])
-
-	const updatePhaseChart = useCallback(() => {
-		const chart = phaseChartRef.current
-		if (!chart) return
-
-		const model = modelRef.current
-		const baseModel = baseModelRef.current
-		const kMax = Math.max(5, model.kStar * 2, baseModel.kStar * 2)
-
-		chart.data.datasets[0].data = model.productionFunctionData(0, kMax)
-		chart.data.datasets[1].data = model.sYLine(0, kMax)
-		chart.data.datasets[2].data = model.amortizationLine(0, kMax)
-
-		const isShocked = baseModel.s !== model.s || baseModel.delta !== model.delta || 
-		                  baseModel.n !== model.n || baseModel.g !== model.g || 
-		                  baseModel.alpha !== model.alpha
-
-		if (isShocked) {
-			chart.data.datasets[3].data = [{ x: baseModel.kStar, y: 0 }, { x: baseModel.kStar, y: baseModel.y(baseModel.kStar) }]
-			chart.data.datasets[3].hidden = false
-			chart.data.datasets[4].data = [{ x: model.kStar, y: 0 }, { x: model.kStar, y: model.y(model.kStar) }]
-			chart.data.datasets[4].hidden = false	
-
-			const param = shockParamRef.current
-			chart.data.datasets[5].hidden = param !== 'alpha'
-			chart.data.datasets[6].hidden = param !== 's'
-			chart.data.datasets[7].hidden = !['delta', 'n', 'g'].includes(param)
-
-			chart.data.datasets[5].data = param === 'alpha' ? baseModel.productionFunctionData(0, kMax) : []
-			chart.data.datasets[6].data = param === 's' ? baseModel.sYLine(0, kMax) : []
-			chart.data.datasets[7].data = ['delta', 'n', 'g'].includes(param) ? baseModel.amortizationLine(0, kMax) : []
-		} else {
-			chart.data.datasets[3].hidden = true
-			chart.data.datasets[4].data = [{ x: model.kStar, y: 0 }, { x: model.kStar, y: model.y(model.kStar) }]
-			chart.data.datasets[4].hidden = false
-			chart.data.datasets[5].hidden = true
-			chart.data.datasets[6].hidden = true
-			chart.data.datasets[7].hidden = true
-		}
-
-		chart.options.scales!.x!.max = kMax
-		chart.options.scales!.y!.max = Math.pow(kMax, model.alpha)
-		chart.update('none')
+		setParams(prev => {
+			const updated = { ...prev, ...newParams }
+			modelRef.current = new SolowModel(updated)
+			return updated
+		})
 	}, [])
 
-	const updateDynamicsChart = useCallback(() => {
-		const chart = dynChartRef.current
-		if (!chart || trajectoryRef.current.length === 0) return
-
-		const traj = trajectoryRef.current
-		const step = 1
-
-		const kData: { x: number, y: number }[] = []
-		const yData: { x: number, y: number }[] = []
-		const cData: { x: number, y: number }[] = []
-
-		for (let i = 0; i < traj.length; i += step) {
-			kData.push({ x: traj[i].t, y: traj[i].k })
-			yData.push({ x: traj[i].t, y: traj[i].y })
-			cData.push({ x: traj[i].t, y: traj[i].c })
-		}
-
-		chart.data.datasets[0].data = kData
-		chart.data.datasets[1].data = yData
-		chart.data.datasets[2].data = cData
-
-		const maxY = Math.max(
-			modelRef.current.kStar,
-			modelRef.current.yStar,
-			modelRef.current.c(modelRef.current.kStar),
-			Math.max(...trajectoryRef.current.slice(-2000).map(o => o.k))
-		) * 1.3
-		chart.options.scales!.y!.max = maxY
-
-		const tMax = traj[traj.length - 1].t
-		const tMin = Math.max(0, tMax - 300)
-		chart.options.scales!.x!.min = tMin
-		chart.options.scales!.x!.max = tMax
-
-		chart.update('none')
-	}, [])
-
-	const updateGrowthChart = useCallback(() => {
-		const chart = growthChartRef.current
-		if (!chart || trajectoryRef.current.length === 0) return
-
-		const traj = trajectoryRef.current
-		const step = 1
-
-		const rData: { x: number, y: number }[] = []
-		const gwData: { x: number, y: number }[] = []
-
-		for (let i = 0; i < traj.length; i += step) {
-			rData.push({ x: traj[i].t, y: traj[i].r })
-			gwData.push({ x: traj[i].t, y: traj[i].gw })
-		}
-
-		chart.data.datasets[0].data = rData
-		chart.data.datasets[1].data = gwData
-
-		const tMax = traj[traj.length - 1].t
-		const tMin = Math.max(0, tMax - 300)
-		chart.options.scales!.x!.min = tMin
-		chart.options.scales!.x!.max = tMax
-
-		chart.update('none')
-	}, [])
-
-	/* =================== SIMULATIONS =================== */
 	const simulateWithShock = useCallback(() => {
-		// remember old traj and use it as initial for next 100 iterations
 		const oldTrajectory = trajectoryRef.current
 		const dt = 100 / 500
 		const endPoint = oldTrajectory[oldTrajectory.length - 1]
@@ -188,7 +54,6 @@ function AppPage() {
 	}, [shockCounter])
 
 	const simulateFromK = useCallback((kStart: number, tStart: number) => {
-		// expected to be called when only k changes (no params changed)
 		const dt = 100 / 500
 		const traj = trajectoryRef.current
 
@@ -206,62 +71,41 @@ function AppPage() {
 		setShockCounter(prev => prev + 1)
 	}, [shockCounter])
 
-	/* =================== HANDLERS =================== */
-	const handleStart = () => {
+	const handleStart = useCallback(() => {
 		const model = modelRef.current
 		const trajectory = model.simulateTraj(500)
 		trajectoryRef.current = trajectory
+		setUpdateVersion(prev => prev + 1)
+	}, [])
 
-		// update charts with start values
-		updateDynamicsChart()
-		updateGrowthChart()
-		updatePhaseChart()
-	}
-
-	const handleReset = () => {
-		const defaultParams = { s: 0.3, delta: 0.05, n: 0.02, g: 0.05, alpha: 0.5, k0: 0.5 }
-
+	const handleReset = useCallback(() => {
 		setParams(defaultParams)
-		setBaseParams(defaultParams)
 
-		// rebuild model
-		const model = new SolowModel(defaultParams)
-		modelRef.current = model
+		modelRef.current = new SolowModel(defaultParams)
 		baseModelRef.current = new SolowModel(defaultParams)
 
-		// update setters
-		setShockApplied(false)
 		setShockParams({ param: 's', value: '0.3' })
 		setShockCounter(0)
-
 		trajectoryRef.current = []
-		updatePhaseChart()
-	}
+		setUpdateVersion(prev => prev + 1)
+	}, [])
 
-	const handleApplyShock = () => {
+	const handleApplyShock = useCallback(() => {
 		const shockValue = parseFloat(shockParams.value)
 		if (isNaN(shockValue) || shockValue <= 0) return
 
-		if (trajectoryRef.current.length === 0) {
-			handleStart()
-		}
+		if (trajectoryRef.current.length === 0) handleStart()
 
 		const param = shockParams.param
 		shockParamRef.current = param
-		setBaseParams({ ...params })
 		baseModelRef.current = new SolowModel(params)
 
-		// params change
 		if (['s', 'delta', 'n', 'g', 'alpha'].includes(param)) {
 			const newParams = { ...params, [param]: shockValue }
 			setParams(newParams)
 
 			modelRef.current = new SolowModel(newParams)
-			
-			// simulate param shock
-			setShockApplied(true)
 			simulateWithShock()
-		// discrete change
 		} else if (['K', 'L', 'A'].includes(param)) {
 			const traj = trajectoryRef.current
 			const lastPoint = traj[traj.length - 1]
@@ -279,37 +123,16 @@ function AppPage() {
 
 			const newTraj = [...traj, shockPoint]
 			trajectoryRef.current = newTraj
-			
-			// simulate discrete change
+
 			simulateFromK(newK, t0)
-			setShockApplied(true)
 		}
 
-		updateDynamicsChart()
-		updateGrowthChart()
-		updatePhaseChart()
-	}
-
-	/* =================== INIT HOOK =================== */
-	useEffect(() => {
-		initPhaseChart()
-		initDynamicsChart()
-		initGrowthChart()
-		updatePhaseChart()
-		updateDynamicsChart()
-		updateGrowthChart()
-
-		return () => {
-			phaseChartRef.current?.destroy()
-			dynChartRef.current?.destroy()
-			growthChartRef.current?.destroy()
-		}
-	}, [])
+		setUpdateVersion(prev => prev + 1)
+	}, [shockParams, params, handleStart, simulateWithShock, simulateFromK])
 
 	const kStar = modelRef.current.kStar
 	const yStar = modelRef.current.yStar
 
-	/* =================== HTML PAGE =================== */
 	return (
 		<MainLayout>
 			<div className='flex space-x-4 space-y-4 mt-4'>
@@ -331,7 +154,7 @@ function AppPage() {
 										<label className="block text-xs font-medium">
 											{label} <span className="font-bold text-blue-600 p-1">{params[key as keyof typeof params]}</span>
 										</label>
-										
+
 										<input
 											type="range"
 											min={min} max={max} step={step}
@@ -367,9 +190,10 @@ function AppPage() {
 										Сбросить
 									</button>
 									<div className="text-center py-4">
-										<p className='text-sm mb-1'>Значения на ТСР</p>
-										<p className="text-sm">k* = <span className="font-bold text-blue-600">{kStar.toFixed(2)}</span></p>
-										<p className="text-sm">y* = <span className="font-bold text-blue-600">{yStar.toFixed(2)}</span></p>
+
+										<p className='text-xl mb-2 text-blue-600 font-bold'>Значения на ТСР</p>
+										<p className="text-sm"><InlineMath math="k^* = " /> <span className="font-bold text-blue-600">{kStar.toFixed(2)}</span></p>
+										<p className="text-sm"><InlineMath math="y^* = " /> <span className="font-bold text-blue-600">{yStar.toFixed(2)}</span></p>
 									</div>
 								</div>
 							</div>
@@ -379,7 +203,7 @@ function AppPage() {
 					<h2 className="text-xl font-bold text-blue-300 text-center mb-4 mt-4">
 						Шоковые сценарии
 					</h2>
-					
+
 					<div className='bg-gray-200 rounded-lg'>
 						<div className='flex justify-center items-center'>
 							<div className='flex grid grid-rows-3'>
@@ -424,31 +248,34 @@ function AppPage() {
 								</div>
 							</div>
 						</div>
-					</div>			
+					</div>
 				</div>
 
 				<div className='w-5/8 bg-gray-100 p-4 mb-4 rounded-lg'>
-					{/* Графики */}
 					<div className='bg-gray-100 rounded-lg ml-2 mr-2 mb-8'>
-						<div className="p-2">
-							<div className="w-full aspect-[2/1]"><canvas ref={phaseCanvas}></canvas></div>
-						</div>
+						<PhaseChartNode
+							modelRef={modelRef}
+							baseModelRef={baseModelRef}
+							shockParamRef={shockParamRef}
+							version={updateVersion}
+						/>
 
 						<div className="grid grid-cols-2 space-y-4">
-							<div className="p-2">
-								<div className="aspect-[3/2]"><canvas ref={dynCanvas}></canvas></div>
-							</div>
-							<div className="p-2">
-								<div className="aspect-[3/2]"><canvas ref={growthCanvas}></canvas></div>
-							</div>
+							<DynamicsChartNode
+								modelRef={modelRef}
+								trajectoryRef={trajectoryRef}
+								version={updateVersion}
+							/>
+							<GrowthChartNode
+								trajectoryRef={trajectoryRef}
+								version={updateVersion}
+							/>
 						</div>
 					</div>
 				</div>
 			</div>
-				
-				
 		</MainLayout>
 	)
 }
 
-export default AppPage;
+export default AppPage

@@ -2,7 +2,7 @@ export const PhaseChartConfig = {
     type: 'line',
     data: {
         datasets: [
-            { label: 'y = k^α', data: [], borderColor: 'rgba(59, 130, 246, 0.5)', fill: false, pointRadius: 0 },
+            { label: 'k^', data: [], borderColor: 'rgba(59, 130, 246, 0.5)', fill: false, pointRadius: 0 },
             { label: 's·f(k)', data: [], borderColor: 'rgba(34, 197, 94, 0.5)', fill: false, pointRadius: 0 },
             { label: '(δ+n+g)·k', data: [], borderColor: 'rgba(239, 68, 68, 0.5)', fill: false, pointRadius: 0 },
             { label: 'k* (старый)', data: [], borderColor: 'rgba(156, 163, 175, 0.5)', borderDash: [5, 5], fill: false, pointRadius: 0, hidden: true },
@@ -25,7 +25,7 @@ export const PhaseChartConfig = {
             },
             y: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'y'
                 }
             }
@@ -39,12 +39,7 @@ export const PhaseChartConfig = {
                 display: true,
                 text: 'Фазовый портрет'
             },
-            legend: {
-                position: 'right',
-                labels: {
-                    usePointStyle: true
-                }
-            }
+            legend: false,
         }
     }
 }
@@ -71,7 +66,7 @@ export const DynamicChartConfig = {
             },
             y: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'k, c, y',
                 },
                 min: 0 
@@ -86,12 +81,7 @@ export const DynamicChartConfig = {
                 display: true,
                 text: 'Динамика показателей'
             },
-            legend: {
-                position: 'right',
-                labels: {
-                    usePointStyle: true
-                }
-            }
+            legend: false
         }
     }
 }
@@ -117,7 +107,7 @@ export const GrowthChartConfig = {
             },
             y: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'r, gw'
                 }, 
                 min: -0.1, 
@@ -133,12 +123,7 @@ export const GrowthChartConfig = {
                 display: true,
                 text: 'Темпы роста'
             },
-            legend: {
-                position: 'right',
-                labels: {
-                    usePointStyle: true
-                }
-            },
+            legend: false
         }
     }
 }

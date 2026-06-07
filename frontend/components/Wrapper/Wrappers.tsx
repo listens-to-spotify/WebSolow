@@ -5,13 +5,16 @@ import { BlockMath, InlineMath } from 'react-katex';
 export function MainLayout({ children } : {children : React.ReactNode}) {
     return (
         <div className="h-screen bg-white flex flex-col">
-            <header className="bg-blue-300 text-white shadow-lg">
-                <nav className="container mx-auto px-4 py-3 flex items-center justify-between">
+            <header className="bg-blue-300 text-white shadow-lg fixed top-0 left-0 right-0 z-10">
+                <nav className="container mx-auto px-4 py-2 flex items-center justify-between">
                     <a href="/" className="text-lg font-bold transition-transform hover:scale-105">WebSolow</a>
+                    <a href="/app" className="text-lg font-bold transition-transform hover:scale-105">Приложение</a>
+                    <a href="/mathmodel" className="text-lg font-bold transition-transform hover:scale-105">Модель</a>
+                    <a href="/docs" className="text-lg font-bold transition-transform hover:scale-105">Документация</a>
                 </nav>
             </header>
             
-            <main className="flex-1 flex items-center justify-center">
+            <main className="flex-1 flex items-center justify-center pt-12">
                 <div className="container px-4">
                     {children}
                 </div>
