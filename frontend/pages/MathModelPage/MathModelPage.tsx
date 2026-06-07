@@ -81,6 +81,8 @@ function MathModelPage() {
 						<div className="bg-gray-100 rounded-2xl px-3 py-3">
 							<BlockMath math="Y = C + I, \\quad I = S = sY" />
 						</div>
+						<InlineMath math="\int_0^\infty x^2 dx"/>
+						<BlockMath math="\int_0^\infty x^2 dx"/>
 
 						<p className="mt-4">
 							Производственная функция {" "}
