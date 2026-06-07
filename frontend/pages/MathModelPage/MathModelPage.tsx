@@ -112,7 +112,7 @@ function MathModelPage() {
 								<HoverCard 
 									text="Предельный продукт факторов положителен и убывает"
 									card={
-										<Latex text="\frac{\partial F}{\partial K} > 0, \quad \frac{\partial F}{\partial L} > 0,\quad \frac{\partial^2 F}{\partial K^2} < 0,\\quad \frac{\partial^2 F}{\partial L^2} < 0" />
+										<Latex text="\frac{\partial F}{\partial K} > 0, \quad \frac{\partial F}{\partial L} > 0,\quad \frac{\partial^2 F}{\partial K^2} < 0,\quad \frac{\partial^2 F}{\partial L^2} < 0" />
 									}
 								/>
 							</li>
