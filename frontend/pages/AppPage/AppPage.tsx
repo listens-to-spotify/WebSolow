@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react'
 import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, Filler } from 'chart.js'
 import { SolowModel, type TrajectoryPoint } from '../../utils/solowCore'
-import { Inline, MainLayout } from '../../components/Wrapper/Wrappers'
+import { MainLayout } from '../../components/Wrapper/Wrappers'
 import { PhaseChartNode } from './components/PhaseChartNode'
 import { DynamicsChartNode } from './components/DynamicsChartNode'
 import { GrowthChartNode } from './components/GrowthChartNode'

@@ -116,16 +116,16 @@ export function DynamicExampleChartNeq() {
         chart.data.datasets[1].data = yData
         chart.data.datasets[2].data = cData
 
-        chart.options.scales.x.max = 150
+        chart.options.scales!.x!.max = 150
 
-        chart.options.scales.y.max =
+        chart.options.scales!.y!.max =
             Math.max(
                 ...traj.map(p => Math.max(p.k, p.y, p.c))
             ) * 1.1
 
         chart.data.datasets[3].data = [
             {x: 50, y: 0},
-            {x: 50, y: chart.options.scales.y.max},
+            {x: 50, y: chart.options.scales!.y!.max},
         ]
 
         chart.update('none')

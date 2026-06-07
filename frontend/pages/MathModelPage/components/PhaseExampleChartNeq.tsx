@@ -1,5 +1,5 @@
 import { useRef, useCallback, useEffect } from 'react'
-import { SolowModel, type TrajectoryPoint } from '../../../utils/solowCore'
+import { SolowModel } from '../../../utils/solowCore'
 import { Chart } from 'chart.js'
 import {
     PhaseExampleChartNeqConfig,

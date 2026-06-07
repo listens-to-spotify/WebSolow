@@ -116,18 +116,18 @@ export function GrowthExampleChartEq() {
         chart.data.datasets[0].data = rData
         chart.data.datasets[1].data = gwData
         chart.data.datasets[2].data = gyData
-        chart.options.scales.x.max = 150
+        chart.options.scales!.x!.max = 150
 
-        chart.options.scales.y.min = 1.2 * Math.min(
+        chart.options.scales!.y!.min = 1.2 * Math.min(
             ...traj.map(p => Math.min(p.r, p.gw, p.gy))
         )
-        chart.options.scales.y.max = 1.1 * Math.max(
+        chart.options.scales!.y!.max = 1.1 * Math.max(
             ...traj.map(p => Math.max(p.r, p.gw, p.gy))
         )
 
         chart.data.datasets[3].data = [
-            {x: 50, y: chart.options.scales.y.min},
-            {x: 50, y: chart.options.scales.y.max},
+            {x: 50, y: chart.options.scales!.y!.min},
+            {x: 50, y: chart.options.scales!.y!.max},
         ]
 
         chart.update('none')

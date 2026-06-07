@@ -2,7 +2,7 @@ import type React from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { BlockMath, InlineMath } from 'react-katex';
 
-export function MainLayout({ children } : {children : React.ReactNode}) {
+export function MainLayout({ children } : {children? : React.ReactNode}) {
     return (
         <div className="h-screen bg-white flex flex-col">
             <header className="bg-blue-300 text-white shadow-lg fixed top-0 left-0 right-0 z-10">
