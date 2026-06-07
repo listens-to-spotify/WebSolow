@@ -54,19 +54,19 @@ export function CodeBlock({ children } : { children : React.ReactNode}) {
     )
 }
 
+function renderError(error: Error) {
+    return <span className="text-red-500 text-xs">{error.message}</span>
+}
+
 export function Latex({ text } : { text : string}) {
     return (
         <div className="bg-gray-100 rounded-2xl px-3 py-3">
-            <BlockMath math={text}/>
+            <BlockMath math={text} renderError={renderError} />
         </div>
     )
 }
 
 export function Inline({ text } : { text : string}) {
-    return (
-        <Quoted>
-            <InlineMath math={text} />
-        </Quoted>    
-    )
+    return <InlineMath math={text} renderError={renderError} />
 }
 
