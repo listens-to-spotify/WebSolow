@@ -12,7 +12,6 @@ export function MainLayout({ children } : {children? : React.ReactNode}) {
                     <Link to="/" className="text-lg font-bold transition-transform hover:scale-105">WebSolow</Link>
                     <Link to="/app" className="text-lg font-bold transition-transform hover:scale-105">Приложение</Link>
                     <Link to="/mathmodel" className="text-lg font-bold transition-transform hover:scale-105">Модель</Link>
-                    <Link to="/docs" className="text-lg font-bold transition-transform hover:scale-105">Документация</Link>
                 </nav>
             </header>
             
