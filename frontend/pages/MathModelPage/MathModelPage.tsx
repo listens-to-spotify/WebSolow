@@ -73,7 +73,7 @@ function MathModelPage() {
 
 						<p>В модели рассматривается закрытая экономика без государственного сектора, поэтому выпуск тратится на потребление (<Inline text="C" />) и сбережения (<Inline text="S" />), равные инвестициям (<Inline text="I" />):</p>
 
-						<Latex text="Y = C + I, \\quad I = S = sY" />
+						<Latex text="Y = C + I, \quad I = S = sY" />
 
 						<p className="mt-4">
 							Производственная функция {" "}
@@ -112,7 +112,7 @@ function MathModelPage() {
 								<HoverCard 
 									text="Предельный продукт факторов положителен и убывает"
 									card={
-										<Latex text="\\frac{\\partial F}{\\partial K} > 0, \\quad \\frac{\\partial F}{\\partial L} > 0,\\quad \\frac{\\partial^2 F}{\\partial K^2} < 0,\\quad \\frac{\\partial^2 F}{\\partial L^2} < 0" />
+										<Latex text="\frac{\partial F}{\partial K} > 0, \quad \frac{\partial F}{\partial L} > 0,\quad \frac{\partial^2 F}{\partial K^2} < 0,\\quad \frac{\partial^2 F}{\partial L^2} < 0" />
 									}
 								/>
 							</li>

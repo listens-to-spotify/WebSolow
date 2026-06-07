@@ -4,6 +4,12 @@ import { AiFillGithub } from "react-icons/ai";
 import { BlockMath, InlineMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 
+function fixLatex(text: string): string {
+  return text.replace(/\\([\\])?([a-zA-Z]+)/g, (_, d, cmd) =>
+    d ? `\\${cmd}` : `\\${cmd}`
+  )
+}
+
 export function MainLayout({ children } : {children? : React.ReactNode}) {
     return (
         <div className="h-screen bg-white flex flex-col">
@@ -62,12 +68,12 @@ function renderError(error: Error) {
 export function Latex({ text } : { text : string}) {
     return (
         <div className="bg-gray-100 rounded-2xl px-3 py-3">
-            <BlockMath math={text} renderError={renderError} />
+            <BlockMath math={fixLatex(text)} renderError={renderError} />
         </div>
     )
 }
 
 export function Inline({ text } : { text : string}) {
-    return <InlineMath math={text} renderError={renderError} />
+    return <InlineMath math={fixLatex(text)} renderError={renderError} />
 }
 
