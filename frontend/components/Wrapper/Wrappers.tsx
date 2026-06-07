@@ -4,6 +4,14 @@ import { AiFillGithub } from "react-icons/ai";
 import { BlockMath, InlineMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 
+export function latex(strings: TemplateStringsArray, ...values: any[]) {
+  let result = strings[0];
+  for (let i = 0; i < values.length; i++) {
+    result += String(values[i]) + strings[i + 1];
+  }
+  return result;
+}
+
 export function MainLayout({ children } : {children? : React.ReactNode}) {
     return (
         <div className="h-screen bg-white flex flex-col">
@@ -69,5 +77,6 @@ export function Latex({ text } : { text : string}) {
 
 export function Inline({ text } : { text : string}) {
     return <InlineMath math={text} renderError={renderError} />
+    
 }
 

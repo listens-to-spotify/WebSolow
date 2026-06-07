@@ -1,4 +1,4 @@
-import { MainLayout, Latex, Inline } from "../../components/Wrapper/Wrappers";
+import { MainLayout, Latex, Inline, latex } from "../../components/Wrapper/Wrappers";
 import 'katex/dist/katex.min.css';
 
 import { FaWikipediaW } from "react-icons/fa";
@@ -12,6 +12,7 @@ import { PhaseExampleChartNeq } from "./components/PhaseExampleChartNeq";
 import { DynamicExampleChartNeq } from "./components/DynamicExampleChartNeq";
 import { GrowthExampleChartNeq } from "./components/GrowthExampleChartNeq";
 import { InlineMath } from "react-katex";
+
 
 interface NavItem {
 	label: string
@@ -74,8 +75,8 @@ function MathModelPage() {
 
 						<p>В модели рассматривается закрытая экономика без государственного сектора, поэтому выпуск тратится на потребление (<Inline text="C" />) и сбережения (<Inline text="S" />), равные инвестициям (<Inline text="I" />):</p>
 
-						<Latex text={"Y = C + I, \quad I = S = sY"} />
-						<InlineMath>Y = C + I, \quad I = S = sY</InlineMath>
+						<Latex text={latex`Y = C + I, \quad I = S = sY`} />
+						<InlineMath math="Y = C + I, \\quad I = S = sY" />
 
 						<p className="mt-4">
 							Производственная функция {" "}
