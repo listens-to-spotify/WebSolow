@@ -77,6 +77,7 @@ function MathModelPage() {
 
 						<Latex text="Y = C + I, \quad I = S = sY" />
 						<InlineMath math="Y = C + I, \\quad I = S = sY" />
+						<InlineMath>{"Y = C + I, \\quad I = S = sY"}</InlineMath>
 						<div className="bg-gray-100 rounded-2xl px-3 py-3">
 							<BlockMath math="Y = C + I, \\quad I = S = sY" />
 						</div>
