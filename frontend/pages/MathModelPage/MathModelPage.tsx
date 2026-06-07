@@ -1,4 +1,4 @@
-import { MainLayout, Latex, Inline, latex } from "../../components/Wrapper/Wrappers";
+import { MainLayout, Latex, Inline } from "../../components/Wrapper/Wrappers";
 import 'katex/dist/katex.min.css';
 
 import { FaWikipediaW } from "react-icons/fa";
