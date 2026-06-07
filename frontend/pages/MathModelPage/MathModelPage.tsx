@@ -11,7 +11,7 @@ import { GrowthExampleChartEq } from "./components/GrowthExampleChartEq";
 import { PhaseExampleChartNeq } from "./components/PhaseExampleChartNeq";
 import { DynamicExampleChartNeq } from "./components/DynamicExampleChartNeq";
 import { GrowthExampleChartNeq } from "./components/GrowthExampleChartNeq";
-import { InlineMath } from "react-katex";
+import { InlineMath, BlockMath } from "react-katex";
 
 
 interface NavItem {
@@ -75,8 +75,11 @@ function MathModelPage() {
 
 						<p>В модели рассматривается закрытая экономика без государственного сектора, поэтому выпуск тратится на потребление (<Inline text="C" />) и сбережения (<Inline text="S" />), равные инвестициям (<Inline text="I" />):</p>
 
-						<Latex text={latex`Y = C + I, \quad I = S = sY`} />
-						<InlineMath math="Y = C + I, \\quad I = S = sY" />
+						<Latex text="Y = C + I, \quad I = S = sY" />
+						<InlineMath math="Y = C + I, \quad I = S = sY" />
+						<div className="bg-gray-100 rounded-2xl px-3 py-3">
+							<BlockMath math="Y = C + I, \quad I = S = sY" />
+						</div>
 
 						<p className="mt-4">
 							Производственная функция {" "}
