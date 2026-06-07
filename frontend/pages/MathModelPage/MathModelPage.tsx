@@ -76,9 +76,9 @@ function MathModelPage() {
 						<p>В модели рассматривается закрытая экономика без государственного сектора, поэтому выпуск тратится на потребление (<Inline text="C" />) и сбережения (<Inline text="S" />), равные инвестициям (<Inline text="I" />):</p>
 
 						<Latex text="Y = C + I, \quad I = S = sY" />
-						<InlineMath math="Y = C + I, \quad I = S = sY" />
+						<InlineMath math="Y = C + I, \\quad I = S = sY" />
 						<div className="bg-gray-100 rounded-2xl px-3 py-3">
-							<BlockMath math="Y = C + I, \quad I = S = sY" />
+							<BlockMath math="Y = C + I, \\quad I = S = sY" />
 						</div>
 
 						<p className="mt-4">
