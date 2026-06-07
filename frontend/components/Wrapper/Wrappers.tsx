@@ -24,7 +24,7 @@ export function MainLayout({ children } : {children? : React.ReactNode}) {
             <footer className="bg-blue-300 text-white shadow-lg text-center py-3">
                 <div className="container mx-auto flex items-center justify-center space-x-3 text-ms">
                     <a>
-                        Web-приложение для моделирования экономических отношений, 2025
+                        Web-приложение для моделирования экономических отношений, 2025-2026
                     </a>
                     <a href="https://github.com/listens-to-spotify/WebSolow" target="_blank">
                         <AiFillGithub className="min-h-6 min-w-6 transition-transform hover:scale-110"></AiFillGithub>
