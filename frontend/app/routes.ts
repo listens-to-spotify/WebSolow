@@ -21,6 +21,8 @@ const router = createBrowserRouter([
         path: "/mathmodel",
         Component: MathModelPage,
     }
-]);
+], {
+    basename: import.meta.env.BASE_URL,
+});
 
 export default router;

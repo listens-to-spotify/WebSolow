@@ -1,5 +1,3 @@
-import '../../styles/global.css'
-
 import { Link } from 'react-router-dom'
 
 export function NavigationButton({ text, to } : { text: string, to?: string }) {

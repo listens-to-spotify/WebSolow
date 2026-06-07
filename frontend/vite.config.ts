@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/WebSolow/',
+  base: process.env.GITHUB_PAGES ? '/WebSolow/' : '/',
   plugins: [
       react(),
       tailwindcss(),

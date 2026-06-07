@@ -1,4 +1,5 @@
 import type React from "react";
+import { Link } from 'react-router-dom';
 import { AiFillGithub } from "react-icons/ai";
 import { BlockMath, InlineMath } from 'react-katex';
 
@@ -7,10 +8,10 @@ export function MainLayout({ children } : {children? : React.ReactNode}) {
         <div className="h-screen bg-white flex flex-col">
             <header className="bg-blue-300 text-white shadow-lg fixed top-0 left-0 right-0 z-10">
                 <nav className="container mx-auto px-4 py-2 flex items-center justify-between">
-                    <a href="/" className="text-lg font-bold transition-transform hover:scale-105">WebSolow</a>
-                    <a href="/app" className="text-lg font-bold transition-transform hover:scale-105">Приложение</a>
-                    <a href="/mathmodel" className="text-lg font-bold transition-transform hover:scale-105">Модель</a>
-                    <a href="/docs" className="text-lg font-bold transition-transform hover:scale-105">Документация</a>
+                    <Link to="/" className="text-lg font-bold transition-transform hover:scale-105">WebSolow</Link>
+                    <Link to="/app" className="text-lg font-bold transition-transform hover:scale-105">Приложение</Link>
+                    <Link to="/mathmodel" className="text-lg font-bold transition-transform hover:scale-105">Модель</Link>
+                    <Link to="/docs" className="text-lg font-bold transition-transform hover:scale-105">Документация</Link>
                 </nav>
             </header>
             
