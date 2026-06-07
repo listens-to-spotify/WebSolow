@@ -1,5 +1,6 @@
 import { MainLayout, Latex, Inline } from "../../components/Wrapper/Wrappers";
 import 'katex/dist/katex.min.css';
+
 import { FaWikipediaW } from "react-icons/fa";
 import { HoverCard } from "../../components/Hovers/HoverCard";
 
