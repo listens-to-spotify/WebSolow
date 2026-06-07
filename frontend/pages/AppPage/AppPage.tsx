@@ -7,7 +7,6 @@ import { DynamicsChartNode } from './components/DynamicsChartNode'
 import { GrowthChartNode } from './components/GrowthChartNode'
 import 'katex/dist/katex.min.css'
 import { InlineMath } from 'react-katex';
-import 'katex/dist/katex.min.css';
 
 
 Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, Filler)
