@@ -27,6 +27,7 @@ function AppPage() {
 		setParams(prev => {
 			const updated = { ...prev, ...newParams }
 			modelRef.current = new SolowModel(updated)
+			baseModelRef.current = new SolowModel(updated)
 			return updated
 		})
 	}, [])
